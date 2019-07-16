@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Ground" || other.tag == "WoodStuff")
         {
             isGrounded = true;
-            animator.SetFloat("inAirMultiplier", 1);
+            animator.SetBool("inAir", false);
         }
 
         //if (other.tag == "Ground" && Input.GetKeyDown(KeyCode.Space))
@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Ground" || other.tag == "WoodStuff")
         {
             isGrounded = false;
-            animator.SetFloat("inAirMultiplier", 0);
+            animator.SetBool("inAir", true);
         }
     }
 
