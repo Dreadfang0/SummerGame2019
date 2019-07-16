@@ -466,6 +466,10 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<PlayerController>().enabled = true; // Activates Player
         isDead = false; // Allows player to be damaged again
                         // Player.GetComponent<PlayerController>().dashUsed = false; // Prevents bug that causes the player being unable to dash
+        for (int i = 0; i < MenuSkillCount.Length; i++)
+        {
+            MenuSkillCount[i].text = "";
+        }
     }
 
     public void BossHealthBarSetup(float MaxHp) // |----BOSS HEALTH----|
