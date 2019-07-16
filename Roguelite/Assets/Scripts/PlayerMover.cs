@@ -11,6 +11,8 @@ public class PlayerMover : MonoBehaviour
     public EnemySpawner EnemySpawner;
     public ClutterSpawner ClutterSpawner;
     public int nextLevel;
+    public int SkellyBoss = 10;
+    public int NecroBoss = 20;
     // Start is called before the first frame update
 
 
@@ -50,11 +52,19 @@ public class PlayerMover : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (nextLevel == 10)
+            if (nextLevel == SkellyBoss)
             {
+                master.GetComponent<RoomSpawner>().KillYourChildren();
                 player.transform.position = BossLevel.transform.position;
+                SkellyBoss += 20;
+                EnemySpawner.GetComponent<EnemySpawner>().SpawnBoss();
 
             }
+          /*  else if (nextLevel == NecroBoss)
+            {
+                player.transform.position = NecroLevel.transform.position;
+                NecroBoss += 20;
+            } */
 
             else
             {

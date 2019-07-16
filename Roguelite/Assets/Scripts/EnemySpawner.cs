@@ -46,6 +46,8 @@ public class EnemySpawner : MonoBehaviour {
     public int scoreGain = 5;
     public float difficulty = 1.1f;
     public float startLimit;
+    public Transform SkellyBossSpawnPoint;
+    public Transform NecroBossSpawnPoint;
 
 
 
@@ -97,6 +99,11 @@ public class EnemySpawner : MonoBehaviour {
             }
         }
         IncreaseAmount();
+    }
+
+    public void SpawnBoss()
+    {
+        Instantiate(gMeleeBoss, SkellyBossSpawnPoint.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>();
     }
 
     public void IncreaseAmount()

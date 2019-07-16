@@ -36,9 +36,11 @@ public class BulletScript : MonoBehaviour
         }
 
         damage = playerController.GetDamage();
+        //Debug.Log(damage);
+        playerController.currentDamage = playerController.baseDamage;
 
-        if(damage > playerController.baseDamage)
-        //if() needs work
+        //if(damage > playerController.baseDamage)
+        if(playerController.isCrit == true)
         {
             isCrit = true;
         }
