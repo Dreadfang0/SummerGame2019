@@ -109,7 +109,7 @@ public class GunScript : MonoBehaviour
         bullet.SetActive(true);
         //Debug.Log("Fire5  "+playerController.currentDamage);
         playerController.currentDamage = playerController.baseDamage;
-        //Debug.Log("Fire5After  " + playerController.currentDamage);
+        Debug.Log("Fire5After  " + playerController.currentDamage);
 
     }
 }
