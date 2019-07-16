@@ -14,7 +14,7 @@ public class NecroController : MonoBehaviour
 {
     // Enemy states
     [HideInInspector]
-    public enum EnemyState {Special, Attacking }
+    public enum EnemyState {Idle, Special, Attacking }
 
     private EnemyState State;
 
@@ -76,7 +76,7 @@ public class NecroController : MonoBehaviour
     RaycastHit hit;
 
     Collider[] playerDetected; // Finds any players
-    //blic Animator animator;
+    public Animator animator;
     //public SpriteRenderer sr;
 
     private Transform playerTransform;
@@ -120,34 +120,52 @@ public class NecroController : MonoBehaviour
             transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
             if (State == EnemyState.Special) // --FLEEING--------------------------------------------------------
             {
+                Debug.Log("Special state");
+                animator.SetInteger("AnimState", 2);
                 if (SpecialActive == false)
                 {
                     StartCoroutine(SpecialAbility());
                 }
+
             }
             else if (State == EnemyState.Attacking) // --ATTACKING--------------------------------------------------
             {
-                if (attackTimerStarted == false) // Start attacktimer, when it ends switch back to roaming
+                animator.SetInteger("AnimState", 1);
+                if (attackTimerStarted == false) // Start attacktimer, when it ends switch back to idle
                 {
                     StartCoroutine("Attack");
                 }
                 audioSource.PlayOneShot(attackAudio, 1);
 
             }
+            else if (State == EnemyState.Idle)
+            {
+                animator.SetInteger("AnimState", 0);
+                
+                
+            }
             if (timerStarted == false)
             {
                 timer = Random.Range(timeToBottleMin, timeToBottleMax);
                 timerStarted = true;
+                Debug.Log("Timer started");
             }
             else
-                timer -= 0.1f;
-            if (timer <= 0)
             {
+                timer -= 0.1f;
+            }
+            if (timer <= 0 && SpecialActive == false && attackTimerStarted == false)
+            {
+                Debug.Log("Timer done");
                 State = EnemyState.Special;
             }
             if (health <= 0)
             {
                 isDead = true;
+            }
+            if (attackOnCooldown == false && SpecialActive == false)
+            {
+                State = EnemyState.Attacking;
             }
         }
         else
@@ -157,22 +175,26 @@ public class NecroController : MonoBehaviour
             {
                 perkSystem.LifeStealHeal();
             }
-            Destroy(gameObject);
+            animator.SetInteger("AnimState", 3);
+            Destroy(gameObject,5);
         }
         
     }
 
     IEnumerator SpecialAbility() // How long enemy flees from player
-    {
+    {   
         SpecialActive = true;
+        
+        yield return new WaitForSeconds(1.1f);
         for (int i = 0; i < BottleTossPoints.Length; i++)
         {
             GameObject.Instantiate(WineBottle, BottleTossPoints[i].transform.position, transform.rotation).GetComponent<Rigidbody>().AddExplosionForce(Random.Range(bottleLaunchMin,bottleLaunchMax), ExplosionPoint.transform.position, 10, 0.4f, ForceMode.Impulse);
-            State = stateChanges.stateAfterSpecial;
+            State = EnemyState.Idle;
         }
         yield return new WaitForSeconds(SpecialTime);
         SpecialActive = false;
         timerStarted = false;
+        
     }
 
     IEnumerator AttackCooldown() // How often enemy attacks
@@ -185,11 +207,12 @@ public class NecroController : MonoBehaviour
     IEnumerator Attack() // How long enemy stays in attacking state, return to roaming afterwards and start cooldown to prevent immediatelly chasing again
     {
         attackTimerStarted = true;
+        
         yield return new WaitForSeconds(attackingTime);
         Casting.Play();
         GameObject.Instantiate(Projectile, ProjectileLauncher.transform.position, ProjectileLauncher.transform.rotation).gameObject.GetComponent<EnemyProjectile>().SetDamage(damage);
         StartCoroutine("AttackCooldown");
-        State = stateChanges.stateAfterAttackTimer;
+        State = EnemyState.Idle;
         attackTimerStarted = false;
     }
     public void Increase(float difficulty)
