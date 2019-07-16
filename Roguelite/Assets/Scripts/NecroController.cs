@@ -120,13 +120,11 @@ public class NecroController : MonoBehaviour
             transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
             if (State == EnemyState.Special) // --FLEEING--------------------------------------------------------
             {
-                Debug.Log("Special state");
                 animator.SetInteger("AnimState", 2);
                 if (SpecialActive == false)
                 {
                     StartCoroutine(SpecialAbility());
                 }
-
             }
             else if (State == EnemyState.Attacking) // --ATTACKING--------------------------------------------------
             {
@@ -141,8 +139,6 @@ public class NecroController : MonoBehaviour
             else if (State == EnemyState.Idle)
             {
                 animator.SetInteger("AnimState", 0);
-                
-                
             }
             if (timerStarted == false)
             {
@@ -194,7 +190,6 @@ public class NecroController : MonoBehaviour
         yield return new WaitForSeconds(SpecialTime);
         SpecialActive = false;
         timerStarted = false;
-        
     }
 
     IEnumerator AttackCooldown() // How often enemy attacks
@@ -207,7 +202,6 @@ public class NecroController : MonoBehaviour
     IEnumerator Attack() // How long enemy stays in attacking state, return to roaming afterwards and start cooldown to prevent immediatelly chasing again
     {
         attackTimerStarted = true;
-        
         yield return new WaitForSeconds(attackingTime);
         Casting.Play();
         GameObject.Instantiate(Projectile, ProjectileLauncher.transform.position, ProjectileLauncher.transform.rotation).gameObject.GetComponent<EnemyProjectile>().SetDamage(damage);

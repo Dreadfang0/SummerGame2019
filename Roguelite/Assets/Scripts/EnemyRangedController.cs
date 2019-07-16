@@ -118,7 +118,7 @@ public class EnemyRangedController : MonoBehaviour
     RaycastHit hit;
 
     Collider[] playerDetected; // Finds any players
-    //blic Animator animator;
+    public Animator animator;
     //public SpriteRenderer sr;
 
     private Transform playerTransform;
@@ -272,6 +272,18 @@ public class EnemyRangedController : MonoBehaviour
 
     public void MoveAtPlayer(int directionMultiplier) // 1 = move towards player, -1 = move away from player.
     {
+        if (directionMultiplier == -1)
+        {
+            animator.SetInteger("AnimState", 2);
+        }
+        if (directionMultiplier == 1)
+        {
+            animator.SetInteger("AnimState", 1);
+        }
+        if (directionMultiplier == 0)
+        {
+            animator.SetInteger("AnimState", 0);
+        }
         Vector3 direction = (playerTransform.position - transform.position); // Finds the direction where the player is.
         Vector3 runTo = transform.position + (direction * directionMultiplier);
         NavMeshHit navHitEngage;
@@ -281,6 +293,7 @@ public class EnemyRangedController : MonoBehaviour
     void StrafeLeft()
     {
         strafing = true;
+        animator.SetInteger("AnimState", 3);
         Vector3 offsetPlayer = playerTransform.transform.position - transform.position;
         Vector3 dir = Vector3.Cross(offsetPlayer, Vector3.up);
         agent.SetDestination(transform.position + dir);
@@ -292,6 +305,7 @@ public class EnemyRangedController : MonoBehaviour
     void StrafeRight()
     {
         strafing = true;
+        animator.SetInteger("AnimState", 4);
         Vector3 offsetPlayer = transform.position - playerTransform.transform.position;
         Vector3 dir = Vector3.Cross(offsetPlayer, Vector3.up);
         agent.SetDestination(transform.position + dir);
