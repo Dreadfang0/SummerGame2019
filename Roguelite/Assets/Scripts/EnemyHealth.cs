@@ -38,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
         if (EnemyType == 4)
             gameObject.GetComponent<BGMController>().health -= dmg;
         if (EnemyType == 5)
-            gameObject.GetComponent<NecroController>().health -= dmg;
+            gameObject.GetComponentInParent<NecroController>().health -= dmg;
         //if (EnemyType == 6)
         //    gameObject.GetComponent<EnemyBaseController>().health -= dmg;
         //if (EnemyType == 7)
