@@ -48,7 +48,7 @@ public class PerkSystem : MonoBehaviour
     public bool LifeSteal = false;
     public bool GlassCannon = false;
     public bool FrostProjectiles = false;
-    public bool Berserk = true;
+    public bool Berserk = false;
 
     [HideInInspector]
     public string multiShotText;
@@ -114,11 +114,13 @@ public class PerkSystem : MonoBehaviour
         if(GlassCannon == true)
         {
             damageText = "Increases your damage by " + damageUpgrade * 2;
+            berserkText = "You deal " + playerController.berserkDamage * 2 + " bonus damage for every " + playerController.berserkThreshold * 100 + "% health you are missing";
         }
 
         else
         {
             damageText = "Increases your damage by " + damageUpgrade;
+            berserkText = "You deal " + playerController.berserkDamage + " bonus damage for every " + playerController.berserkThreshold * 100 + "% health you are missing";
         }
 
         healthUpgradeText = "Increases your maximum and current health by " + healthUpgrade;
@@ -128,8 +130,7 @@ public class PerkSystem : MonoBehaviour
         criticalMasteryText = "Increases your critical hit chance by " + critChanceUpgrade + "% and your critical damage multiplier by " + critMultiUpgrade;
         glassCannonText = "Doubles your damage and halves your health";
         burstText = "Adds another projectile after every projectile you shoot";
-        frostProjectilesText = "Your projectiles now slow enemies movement speed by X%";
-        berserkText = "You deal more damage the less health you have";
+        frostProjectilesText = "Your projectiles now slow enemies movement speed by " + "%";
     }
 
     public void LifeStealHeal()

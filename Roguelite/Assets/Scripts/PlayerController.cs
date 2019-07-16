@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
     public float reloadSpeed = 3;
     public float critChance = 10;
     public double critMultiplier = 2;
+    public bool isCrit = false;
     public float projectileSpeed = 10;
     public float explosiveMultiplier = 0.25f;
     public float burstDelay = 0.1f;
@@ -123,8 +124,13 @@ public class PlayerController : MonoBehaviour
         ammo = ammoMax;
         //experienceMax = level * 100f;
         health = healthMax;
-        currentDamage = baseDamage;
+        //currentDamage = baseDamage;
         armorSpill = 1 - armorAbsorption;
+    }
+
+    private void Start()
+    {
+        currentDamage = baseDamage;
     }
 
     private void Update()
@@ -577,7 +583,7 @@ public class PlayerController : MonoBehaviour
             attackTimer = 0;
             BerserkDamage();
             StartCoroutine(BurstDelay());
-            Debug.Log(currentDamage);
+            //Debug.Log(currentDamage);
             ammo -= 1;
             currentDamage = baseDamage;
         }
@@ -600,7 +606,6 @@ public class PlayerController : MonoBehaviour
             {
                 //Debug.Log("Tapahtuu");
                 currentDamage += berserkDamage;
-                
                 //Debug.Log(currentDamage);
 
             }
@@ -612,6 +617,12 @@ public class PlayerController : MonoBehaviour
         if (Random.Range(0, 100) < critChance)
         {
             currentDamage = (currentDamage * (int)(critMultiplier * 10)) / 10;
+            isCrit = true;
+        }
+
+        else
+        {
+            isCrit = false;
         }
         return currentDamage;
     }

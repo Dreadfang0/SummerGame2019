@@ -589,7 +589,7 @@ public class GameManager : MonoBehaviour
     
     void Perk1()
     {
-        switch (Random.Range(0, 11))
+        switch (Random.Range(0, 13))
         {
             case 0:
                 if(perkSystem.multishotUpgrade == 1)
@@ -745,12 +745,42 @@ public class GameManager : MonoBehaviour
                     perk1Button.onClick.AddListener(continueLevelUp);
                     break;
                 }
+
+            case 11:
+                if(perkSystem.FrostProjectiles == true)
+                {
+                    Perk1();
+                    break;
+                }
+                else
+                {
+                    perk1Button.onClick.AddListener(perkSystem.FrostProjectilesPerk);
+                    perk1Text.text = perkSystem.frostProjectilesText;
+                    perk1Icon.sprite = perkSystem.perkIcons.frostProjectilesIcon;
+                    perk1Button.onClick.AddListener(continueLevelUp);
+                    break;
+                }
+
+            case 12:
+                if (perkSystem.Berserk == true)
+                {
+                    Perk1();
+                    break;
+                }
+                else
+                {
+                    perk1Button.onClick.AddListener(perkSystem.BerserkPerk);
+                    perk1Text.text = perkSystem.berserkText;
+                    perk1Icon.sprite = perkSystem.perkIcons.berserkIcon;
+                    perk1Button.onClick.AddListener(continueLevelUp);
+                    break;
+                }
         }
     }
 
     void Perk2()
     {
-        switch (Random.Range(0, 11))
+        switch (Random.Range(0, 13))
         {
             case 0:
                 if (perkSystem.multishotUpgrade == 1)
@@ -905,12 +935,42 @@ public class GameManager : MonoBehaviour
                     perk2Button.onClick.AddListener(continueLevelUp);
                     break;
                 }
+
+            case 11:
+                if (perkSystem.FrostProjectiles == true)
+                {
+                    Perk2();
+                    break;
+                }
+                else
+                {
+                    perk2Button.onClick.AddListener(perkSystem.FrostProjectilesPerk);
+                    perk2Text.text = perkSystem.frostProjectilesText;
+                    perk2Icon.sprite = perkSystem.perkIcons.frostProjectilesIcon;
+                    perk2Button.onClick.AddListener(continueLevelUp);
+                    break;
+                }
+
+            case 12:
+                if (perkSystem.Berserk == true)
+                {
+                    Perk2();
+                    break;
+                }
+                else
+                {
+                    perk2Button.onClick.AddListener(perkSystem.BerserkPerk);
+                    perk2Text.text = perkSystem.berserkText;
+                    perk2Icon.sprite = perkSystem.perkIcons.berserkIcon;
+                    perk2Button.onClick.AddListener(continueLevelUp);
+                    break;
+                }
         }
     }
 
     void Perk3()
     {
-        switch (Random.Range(0, 11))
+        switch (Random.Range(0, 13))
         {
             case 0:
                 if (perkSystem.multishotUpgrade == 1)
@@ -1061,6 +1121,35 @@ public class GameManager : MonoBehaviour
                     perk3Button.onClick.AddListener(perkSystem.BurstPerk);
                     perk3Text.text = perkSystem.burstText;
                     perk3Icon.sprite = perkSystem.perkIcons.burstIcon;
+                    perk3Button.onClick.AddListener(continueLevelUp);
+                    break;
+                }
+            case 11:
+                if (perkSystem.FrostProjectiles == true)
+                {
+                    Perk3();
+                    break;
+                }
+                else
+                {
+                    perk3Button.onClick.AddListener(perkSystem.FrostProjectilesPerk);
+                    perk3Text.text = perkSystem.frostProjectilesText;
+                    perk3Icon.sprite = perkSystem.perkIcons.frostProjectilesIcon;
+                    perk3Button.onClick.AddListener(continueLevelUp);
+                    break;
+                }
+
+            case 12:
+                if (perkSystem.Berserk == true)
+                {
+                    Perk3();
+                    break;
+                }
+                else
+                {
+                    perk3Button.onClick.AddListener(perkSystem.BerserkPerk);
+                    perk3Text.text = perkSystem.berserkText;
+                    perk3Icon.sprite = perkSystem.perkIcons.berserkIcon;
                     perk3Button.onClick.AddListener(continueLevelUp);
                     break;
                 }
