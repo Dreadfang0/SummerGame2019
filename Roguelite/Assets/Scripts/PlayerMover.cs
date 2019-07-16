@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerMover : MonoBehaviour
 {
     public GameObject StartPoint;
-    public GameObject BossLevel;
+    public GameObject SkellyBossLevel;
+    public GameObject NecroBossLevel;
     public GameObject player;
     public GameObject master;
     public EnemySpawner EnemySpawner;
-    public ClutterSpawner ClutterSpawner;
     public int nextLevel;
     public int SkellyBoss = 10;
     public int NecroBoss = 20;
@@ -22,7 +22,7 @@ public class PlayerMover : MonoBehaviour
     {
         if (nextLevel == 0)
         {
-
+            //Fukken skip cause spaghet :-DDD
         }
         else
         { 
@@ -55,16 +55,17 @@ public class PlayerMover : MonoBehaviour
             if (nextLevel == SkellyBoss)
             {
                 master.GetComponent<RoomSpawner>().KillYourChildren();
-                player.transform.position = BossLevel.transform.position;
+                player.transform.position = SkellyBossLevel.transform.position;
                 SkellyBoss += 20;
-                EnemySpawner.GetComponent<EnemySpawner>().SpawnBoss();
-
+                EnemySpawner.GetComponent<EnemySpawner>().SpawnSkellyBoss();
             }
-          /*  else if (nextLevel == NecroBoss)
+            else if (nextLevel == NecroBoss)
             {
-                player.transform.position = NecroLevel.transform.position;
+                master.GetComponent<RoomSpawner>().KillYourChildren();
+                player.transform.position = NecroBossLevel.transform.position;
                 NecroBoss += 20;
-            } */
+                EnemySpawner.GetComponent<EnemySpawner>().SpawnNecroBoss();
+            }
 
             else
             {
