@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 /*
 Original Author: Janne Karhu
 V:1.0 | 20.6.2019 Janne Karhu
@@ -24,29 +25,43 @@ public class EnemyHealth : MonoBehaviour
     GameObject HurtParticle;
     [SerializeField]
     bool isFlamington;
+    bool isSlowed;
+    float previousSpeed;
     public void damageEnemy(int dmg)
     {
         HurtParticle.GetComponent<ParticleSystem>().Play();
         if (EnemyType == 0)
+        {
             gameObject.GetComponent<EnemyBaseController>().health -= dmg;
+        }
         if (EnemyType == 1)
+        {
             gameObject.GetComponent<EnemyRangedController>().health -= dmg;
+        }
         //if (EnemyType == 2)
         //    gameObject.GetComponent<EnemyBaseController>().health -= dmg;
         //if (EnemyType == 3)
         //    gameObject.GetComponent<EnemyBaseController>().health -= dmg;
         if (EnemyType == 4)
+        {
             gameObject.GetComponent<BGMController>().health -= dmg;
+        }
         if (EnemyType == 5)
+        {
             gameObject.GetComponentInParent<NecroController>().health -= dmg;
+        }
         //if (EnemyType == 6)
         //    gameObject.GetComponent<EnemyBaseController>().health -= dmg;
         //if (EnemyType == 7)
         //    gameObject.GetComponent<EnemyBaseController>().health -= dmg;
         if (EnemyType == 8)
+        {
             gameObject.GetComponent<BarreltonSpawn>().health -= dmg;
+        }
         if (EnemyType == 9)
+        {
             gameObject.GetComponent<DOOT>().health -= dmg;
+        }
     }
     public void burnEnemy(int dmg)
     {
@@ -66,5 +81,24 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log(i);
         }
         BurningParticle.GetComponent<ParticleSystem>().Stop();
+    }
+    public void slowed(float slowAmount)
+    {
+        StartCoroutine(Slow(slowAmount));
+    }
+    IEnumerator Slow(float slow)
+    {
+        if (GetComponentInParent<NavMeshAgent>() != null)
+        { 
+            if (isSlowed == false)
+            {
+                previousSpeed = GetComponentInParent<NavMeshAgent>().speed;
+                isSlowed = true;
+            }
+            GetComponentInParent<NavMeshAgent>().speed -= previousSpeed * slow;
+            yield return new WaitForSeconds(3);
+            GetComponentInParent<NavMeshAgent>().speed = previousSpeed;
+            isSlowed = false;
+        }
     }
 }

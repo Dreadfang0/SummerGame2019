@@ -180,7 +180,7 @@ public class DOOT : MonoBehaviour
             transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
             if (State == EnemyState.Positioning) // --ROAMING--------------------------------------------------
             {
-                agent.speed = Speed;
+                
                 float distance = Vector3.Distance(playerTransform.transform.position, transform.position);
 
                 if (distance >= maxPositioningDistance)
@@ -218,7 +218,7 @@ public class DOOT : MonoBehaviour
 
                 //animator.SetInteger("AnimPos", 2); // Can be used to set aggressive animation or something.
 
-                agent.speed = Speed * chaseSpeedMultiplier;
+                
 
                 //playerDetected = Physics.OverlapSphere(transform.position, roamingDetectionRadius, (1 << LayerMask.NameToLayer("Player"))); // Locates players using layers.
 
@@ -242,7 +242,7 @@ public class DOOT : MonoBehaviour
                 {
                     if (audioSource.isPlaying == false)
                         audioSource.PlayOneShot(damagedAudio, 1);
-                    agent.speed = Speed * fleeingSpeedMultiplier;
+                    
                     StartCoroutine("FleeingTimer");
                 }
                 else if (isFleeing)
@@ -360,8 +360,6 @@ public class DOOT : MonoBehaviour
         yield return new WaitForSeconds(chaseCoolDown);
         chaseOnCoolDown = false;
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {

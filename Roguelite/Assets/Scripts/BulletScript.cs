@@ -89,6 +89,10 @@ public class BulletScript : MonoBehaviour
             {
                 other.GetComponent<EnemyHealth>().burnEnemy(playerController.currentDamage / 5);
             }
+            if (perkSystem.FrostProjectiles == true)
+            {
+                other.GetComponent<EnemyHealth>().slowed(playerController.slowMultiplier);
+            }
         }
 
         else if (other.gameObject.tag == "WoodStuff")

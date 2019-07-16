@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
     public int berserkDamage;
     public double berserkThreshold = 0.1;
     public double berserkStackAmount;
+    public float slowMultiplier;
     public PerkSystem perkSystem;
     public Animator animator;
   

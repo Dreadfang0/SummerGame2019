@@ -180,9 +180,6 @@ public class EnemyBaseController : MonoBehaviour
         {
             if (State == EnemyState.Positioning) // --ROAMING--------------------------------------------------
             {
-
-
-                agent.speed = Speed;
                 float distance = Vector3.Distance(playerTransform.transform.position, transform.position);
                 MoveAtPlayer(-1);
 
@@ -198,7 +195,6 @@ public class EnemyBaseController : MonoBehaviour
 
                 //animator.SetInteger("AnimPos", 2); // Can be used to set aggressive animation or something.
 
-                agent.speed = Speed * chaseSpeedMultiplier;
 
                 //playerDetected = Physics.OverlapSphere(transform.position, roamingDetectionRadius, (1 << LayerMask.NameToLayer("Player"))); // Locates players using layers.
 
@@ -313,7 +309,6 @@ public class EnemyBaseController : MonoBehaviour
         yield return new WaitForSeconds(chaseCoolDown);
         chaseOnCoolDown = false;
     }
-
     public void damageEnemy(int dmg)
     {
         health -= dmg;
