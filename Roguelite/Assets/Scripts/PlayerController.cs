@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
 
     public AudioSource footstepSource;
+    private bool isMoving;
 
     private void Awake()
     {
@@ -663,13 +664,28 @@ public class PlayerController : MonoBehaviour
 
     void Sounds()
     {
-        if(footstepSource.isPlaying == false)
+        if(isMoving == false && isGrounded == true)
         {
             if(moveX != 0 || moveY != 0)
             {
-                footstepSource.Play();
+                StartCoroutine(MovingAudio());
             }
         }
+    }
 
+   IEnumerator MovingAudio()
+    {
+        isMoving = true;
+        footstepSource.Play();
+        if(isCrouching == true)
+        {
+            yield return new WaitForSeconds((footstepSource.clip.length * 1.8f));
+        }
+        else
+        {
+            yield return new WaitForSeconds(footstepSource.clip.length * 1.5f);
+        }
+
+        isMoving = false;
     }
 }

@@ -112,15 +112,18 @@ public class GameManager : MonoBehaviour
     public Slider musicSlider;
     public Slider sfxSlider;
 
+    public TextMeshProUGUI masterNumber;
+    public TextMeshProUGUI musicNumber;
+    public TextMeshProUGUI sfxNumber;
+
     public Slider mouseSensitivity;
     public TextMeshProUGUI mouseSensitivityNumber;
     public Toggle mouseInversion;
 
     public AudioMixer masterMixer;
-    public AudioMixerGroup masterGroup;
     public AudioMixer DOOTMixer;
-    public AudioMixer musicMixer;
-    public AudioMixer soundMixer;
+    //public AudioMixer musicMixer;
+    //public AudioMixer soundMixer;
 
     float timer; // Used for regen.
     [SerializeField]
@@ -158,6 +161,9 @@ public class GameManager : MonoBehaviour
         mouseLook = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>();
         mouseLook.sensitivity = PlayerPrefs.GetFloat("Sensitivity");
         mouseSensitivity.value = PlayerPrefs.GetFloat("MouseSlider");
+        masterSlider.value = PlayerPrefs.GetFloat("MasterVol");
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
     }
 
     void Start()
@@ -169,13 +175,13 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("FirstRun", 0);
 
-            PlayerPrefs.SetFloat("SoundVolume", 0);
-            PlayerPrefs.SetFloat("MusicVolume", 0);
+            //PlayerPrefs.SetFloat("SoundVolume", 0);
+            //PlayerPrefs.SetFloat("MusicVolume", 0);
 
             //PlayerPrefs.SetFloat("Sensitivity",1);
             //mouseLook.sensitivity = PlayerPrefs.GetFloat("Sensitivity");
             //mouseSensitivity.value = PlayerPrefs.GetFloat("MouseSlider");
-
+            SetAudio();
             PlayerPrefs.Save();
         }
         else // If first run is not found or is 1, get values since they already exist.
@@ -186,6 +192,7 @@ public class GameManager : MonoBehaviour
             //musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
             //mouseLook.sensitivity = PlayerPrefs.GetFloat("Sensitivity");
             //mouseSensitivity.value = PlayerPrefs.GetFloat("MouseSlider");
+            SetAudio();
 
         }
     }
@@ -211,9 +218,13 @@ public class GameManager : MonoBehaviour
         if(pausedGame == true)
         {
             mouseSensitivityNumber.text = "" + (int)(mouseSensitivity.value * 10f)/ 10f;
+            SetAudio();
+            masterNumber.text = "" + (int)(masterSlider.value * 100f) + "%";
+            musicNumber.text = "" + (int)(musicSlider.value * 100f) + "%";
+            sfxNumber.text = "" + (int)(sfxSlider.value * 100f) + "%";
         }
 
-        if(playerController == null)
+        if (playerController == null)
             playerController = Player.GetComponent<PlayerController>();
         if (BossActive == true) //BossHealthBar Updater
         {
@@ -308,7 +319,6 @@ public class GameManager : MonoBehaviour
         //damaged.GetComponent<Image>().color = Color.Lerp(dmgColor, noColor,colorFade / 100);
         //ammoCount.text = collectiblesCollected.ToString();
 
-        SetAudio();
     }
     public void damagePlayer(int damage) // |-----DAMAGE PLAYER-----|
     {
@@ -414,14 +424,14 @@ public class GameManager : MonoBehaviour
         MouseSensitivity();
         saveSettings();
     }
-    public void SetSoundVolume(float newVolume) // |-----VOLUME CHANGING-----|
-    {
-        soundMixer.SetFloat("Volume", newVolume);
-    }
-    public void SetMusicVolume(float newVolume)
-    {
-        musicMixer.SetFloat("Volume", newVolume);
-    }
+    //public void SetSoundVolume(float newVolume) // |-----VOLUME CHANGING-----|
+    //{
+    //    soundMixer.SetFloat("Volume", newVolume);
+    //}
+    //public void SetMusicVolume(float newVolume)
+    //{
+    //    musicMixer.SetFloat("Volume", newVolume);
+    //}
 
     public void saveSettings() // |-----SAVE SETTINGS-----|
     {
@@ -434,6 +444,10 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("Sensitivity", mouseLook.sensitivity);
         PlayerPrefs.SetFloat("MouseSlider", mouseSensitivity.value);
+
+        PlayerPrefs.SetFloat("MasterVol", masterSlider.value);
+        PlayerPrefs.SetFloat("MusicVol", musicSlider.value);
+        PlayerPrefs.SetFloat("SFXVol", sfxSlider.value);
 
         PlayerPrefs.Save();
     }

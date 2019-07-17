@@ -14,9 +14,11 @@ public class GunScript : MonoBehaviour
     public GameObject[] spawners;
     public PerkSystem perkSystem;
     public PlayerController playerController;
+    public AudioSource shootingSource;
 
     public void Shoot()
     {
+        shootingSource.PlayOneShot(shootingSource.clip);
         //Instantiate(bullet, spawner.position, transform.rotation);
         GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
         if (bullet != null)
@@ -109,7 +111,7 @@ public class GunScript : MonoBehaviour
         bullet.SetActive(true);
         //Debug.Log("Fire5  "+playerController.currentDamage);
         playerController.currentDamage = playerController.baseDamage;
-        Debug.Log("Fire5After  " + playerController.currentDamage);
+        //Debug.Log("Fire5After  " + playerController.currentDamage);
 
     }
 }
