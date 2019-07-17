@@ -108,13 +108,17 @@ public class GameManager : MonoBehaviour
     float BossHp;
     bool BossActive;
 
-    public Slider soundSlider;
+    public Slider masterSlider;
     public Slider musicSlider;
+    public Slider sfxSlider;
 
     public Slider mouseSensitivity;
     public TextMeshProUGUI mouseSensitivityNumber;
     public Toggle mouseInversion;
 
+    public AudioMixer masterMixer;
+    public AudioMixerGroup masterGroup;
+    public AudioMixer DOOTMixer;
     public AudioMixer musicMixer;
     public AudioMixer soundMixer;
 
@@ -303,6 +307,8 @@ public class GameManager : MonoBehaviour
 
         //damaged.GetComponent<Image>().color = Color.Lerp(dmgColor, noColor,colorFade / 100);
         //ammoCount.text = collectiblesCollected.ToString();
+
+        SetAudio();
     }
     public void damagePlayer(int damage) // |-----DAMAGE PLAYER-----|
     {
@@ -416,6 +422,7 @@ public class GameManager : MonoBehaviour
     {
         musicMixer.SetFloat("Volume", newVolume);
     }
+
     public void saveSettings() // |-----SAVE SETTINGS-----|
     {
         //float sv;
@@ -550,6 +557,13 @@ public class GameManager : MonoBehaviour
         {
             mouseLook.invert = false;
         }
+    }
+
+    public void SetAudio()
+    {
+        masterMixer.SetFloat("MasterVol", Mathf.Log10(masterSlider.value) * 20);
+        masterMixer.SetFloat("MusicVol", Mathf.Log10(musicSlider.value) * 20);
+        masterMixer.SetFloat("SFXVol", Mathf.Log10(sfxSlider.value) * 20);
     }
 
     public void LevelUp()

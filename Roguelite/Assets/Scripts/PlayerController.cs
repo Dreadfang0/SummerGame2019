@@ -111,7 +111,8 @@ public class PlayerController : MonoBehaviour
     public float slowMultiplier;
     public PerkSystem perkSystem;
     public Animator animator;
-  
+
+    public AudioSource footstepSource;
 
     private void Awake()
     {
@@ -153,6 +154,7 @@ public class PlayerController : MonoBehaviour
             berserkStackAmount = 1 - ((double)health / (double)healthMax);
             Shoot();
             Reload();
+            Sounds();
         }
     }
 
@@ -657,5 +659,17 @@ public class PlayerController : MonoBehaviour
         reloading = false;
         animator.SetBool("isReloading", false);
         GameManager.instance.reload.SetActive(false);
+    }
+
+    void Sounds()
+    {
+        if(footstepSource.isPlaying == false)
+        {
+            if(moveX != 0 || moveY != 0)
+            {
+                footstepSource.Play();
+            }
+        }
+
     }
 }
