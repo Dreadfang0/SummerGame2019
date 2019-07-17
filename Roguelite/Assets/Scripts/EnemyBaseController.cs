@@ -114,7 +114,7 @@ public class EnemyBaseController : MonoBehaviour
     RaycastHit hit;
 
     Collider[] playerDetected; // Finds any players
-    //blic Animator animator;
+    public Animator animator;
     //public SpriteRenderer sr;
 
     private Transform playerTransform;
@@ -144,7 +144,6 @@ public class EnemyBaseController : MonoBehaviour
         else
             Debug.Log("Can't find player gameobject, is player tagged or placed in scene?");
 
-        timer = UnityEngine.Random.Range(0.5f, roamingMaxIdleTime); // Sets the timer randomly for the enemy so they seem more unique and dont all move at the same time.
         agent = GetComponent<NavMeshAgent>();
         Speed = agent.speed; // Gets the speed value of the navmesh agent
     }
@@ -183,8 +182,7 @@ public class EnemyBaseController : MonoBehaviour
                 float distance = Vector3.Distance(playerTransform.transform.position, transform.position);
                 MoveAtPlayer(-1);
 
-
-                if (distance > positioningDistance)
+                if (distance >= positioningDistance)
                 {
                     State = stateChanges.stateAfterDetectTarget;
                 }
@@ -210,6 +208,13 @@ public class EnemyBaseController : MonoBehaviour
                     {
                         State = stateChanges.stateAfterCloseToTarget;
                     }
+                }
+                if (chaseOnCoolDown == true && distance >= positioningDistance && agent.remainingDistance == 0)
+                {
+                    
+                        Debug.Log("YEET");
+                        animator.SetInteger("AnimState", 0);
+                    
                 }
             }
             else if (State == EnemyState.Special) // --FLEEING--------------------------------------------------------
@@ -258,6 +263,11 @@ public class EnemyBaseController : MonoBehaviour
 
     public void MoveAtPlayer(int directionMultiplier) // 1 = move towards player, -1 = move away from player.
     {
+        if (directionMultiplier == 1)
+            animator.SetInteger("AnimState", 1);
+        if (directionMultiplier == -1)
+            animator.SetInteger("AnimState", 1);
+        
         Vector3 direction = (playerTransform.position - transform.position); // Finds the direction where the player is.
         Vector3 runTo = transform.position + (direction * directionMultiplier);
         NavMeshHit navHitEngage;
@@ -276,28 +286,12 @@ public class EnemyBaseController : MonoBehaviour
         positioning = false;
     }
 
-    IEnumerator FleeingTimer() // How long enemy flees from player
-    {
-        isFleeing = true;
-        yield return new WaitForSeconds(fleeingTime);
-        StartCoroutine("OnAlertTimer");
-        State = stateChanges.stateAfterFleeing;
-        isFleeing = false;
-    }
-
-    IEnumerator DashCooldown() // How often enemy dashes
-    {
-        isDashing = true;
-        yield return new WaitForSeconds(dashCooldown);
-        isDashing = false;
-    }
-
     IEnumerator Attack() // How long enemy stays in attacking state, return to roaming afterwards and start cooldown to prevent immediatelly chasing again
     {
         attackTimerStarted = true;
+        animator.SetInteger("AnimState", 4);
         MoveAtPlayer(0);
         yield return new WaitForSeconds(attackingTime);
-        //Attack animation that swings the weapon or shoots projectile
         StartCoroutine("ChaseCoolDown");
         State = stateChanges.stateAfterAttackTimer;
         attackTimerStarted = false;

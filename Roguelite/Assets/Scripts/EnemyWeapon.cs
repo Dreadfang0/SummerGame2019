@@ -35,7 +35,6 @@ public class EnemyWeapon : MonoBehaviour
         {
             if (isBoomington == false)
             {
-                Debug.Log("EI TÄNNEPÄIN");
                 GameManager.instance.damagePlayer(damage);
                 if (isFlamington)
                 {
