@@ -50,7 +50,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (EnemyType == 5)
         {
-            gameObject.GetComponentInParent<NecroController>().health -= dmg;
+            gameObject.GetComponent<NecroController>().health -= dmg;
         }
         //if (EnemyType == 6)
         //    gameObject.GetComponent<EnemyBaseController>().health -= dmg;

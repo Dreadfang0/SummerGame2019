@@ -100,7 +100,7 @@ public class BGMController : MonoBehaviour
     RaycastHit hit;
 
     Collider[] playerDetected; // Finds any players
-    //blic Animator animator;
+    public Animator animator;
     //public SpriteRenderer sr;
 
     private Transform playerTransform;
@@ -128,6 +128,7 @@ public class BGMController : MonoBehaviour
         Speed = agent.speed; // Gets the speed value of the navmesh agent
         baseAcceleration = agent.acceleration;
         GameManager.instance.BossHealthBarSetup(health);
+        StartCoroutine(ChargeCooldownTimer());
     }
 
     void FixedUpdate()
@@ -142,6 +143,7 @@ public class BGMController : MonoBehaviour
             GameManager.instance.BossHealthUpdater(health);
             if (State == EnemyState.Chasing) // --CHASING--------------------------------------------------
             {
+                animator.SetInteger("AnimState", 1);
                 agent.acceleration = baseAcceleration;
                 //animator.SetInteger("AnimPos", 2); // Can be used to set aggressive animation or something.
 
@@ -181,6 +183,7 @@ public class BGMController : MonoBehaviour
                 }
                 else
                 {
+                    animator.SetInteger("AnimState", 2);
                     float dist = agent.remainingDistance;
                     if (dist != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance == 0)
                     {
@@ -193,6 +196,7 @@ public class BGMController : MonoBehaviour
             }
             else if (State == EnemyState.Attacking) // --ATTACKING--------------------------------------------------
             {
+                transform.LookAt(playerTransform);
                 if (attackTimerStarted == false) // Start attacktimer, when it ends switch back to roaming
                 {
                     StartCoroutine("Attack");
@@ -234,11 +238,12 @@ public class BGMController : MonoBehaviour
     {
         isCharging = true;
         MoveAtPlayer(2);
+        StartCoroutine(ChargeCooldownTimer());
         agent.speed = Speed * chargeSpeedMultiplier;
         agent.acceleration = 50;
         agent.velocity = agent.velocity * 2f;
         yield return new WaitForSeconds(0.2f);
-        agent.acceleration = 50;
+        agent.acceleration = baseAcceleration;
         yield return new WaitForSeconds(SpecialTime);
         State = stateChanges.stateAfterSpecial;
         isCharging = false;
@@ -254,7 +259,9 @@ public class BGMController : MonoBehaviour
     IEnumerator Attack() // How long enemy stays in attacking state, return to roaming afterwards and start cooldown to prevent immediatelly chasing again
     {
         attackTimerStarted = true;
+        animator.SetInteger("AnimState", 4);
         MoveAtPlayer(0);
+        
         yield return new WaitForSeconds(attackingTime);
         //Attack animation that swings the weapon or shoots projectile
         State = stateChanges.stateAfterAttackTimer;

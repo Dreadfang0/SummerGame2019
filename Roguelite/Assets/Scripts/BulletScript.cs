@@ -73,7 +73,7 @@ public class BulletScript : MonoBehaviour
         //Debug.Log(damage);
         if (other.gameObject.tag == "Enemy")
         {
-            other.GetComponent<EnemyHealth>().damageEnemy(damage);
+            other.GetComponentInParent<EnemyHealth>().damageEnemy(damage);
 
             if(perkSystem.PiercingProjectiles == false)
             {
@@ -87,11 +87,11 @@ public class BulletScript : MonoBehaviour
 
             if (perkSystem.FireProjectiles == true)
             {
-                other.GetComponent<EnemyHealth>().burnEnemy(playerController.currentDamage / 5);
+                other.GetComponentInParent<EnemyHealth>().burnEnemy(playerController.currentDamage / 5);
             }
             if (perkSystem.FrostProjectiles == true)
             {
-                other.GetComponent<EnemyHealth>().slowed(playerController.slowMultiplier);
+                other.GetComponentInParent<EnemyHealth>().slowed(playerController.slowMultiplier);
             }
         }
 
