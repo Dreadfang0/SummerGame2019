@@ -23,7 +23,7 @@ public class WoodStuff : MonoBehaviour
     }
     public void BreakingWood()
     {
-        GameObject Wood = (GameObject)Instantiate(woodSplinter, this.transform.position, transform.rotation);
+        GameObject Wood = (GameObject)Instantiate(woodSplinter, new Vector3(this.transform.position.x, this.transform.position.y + 0.65f, this.transform.position.z), transform.rotation);
         Destroy(Wood, 1);
         if (explosive == true && explode == false)
         {
@@ -38,12 +38,12 @@ public class WoodStuff : MonoBehaviour
         explode = true;
         if (isBoomingtonBarrel == false)
         {
-            GameObject Boom = (GameObject)Instantiate(explosionParticle, this.transform.position, transform.rotation);
+            GameObject Boom = (GameObject)Instantiate(explosionParticle, new Vector3(this.transform.position.x, this.transform.position.y + 0.65f, this.transform.position.z), transform.rotation);
             Destroy(Boom, 1);
         }
         else
         {
-            GameObject.Instantiate(explosionParticle, this.transform.position, transform.rotation).GetComponent<Explosion>().setBoom(damage);
+            GameObject.Instantiate(explosionParticle, new Vector3 (this.transform.position.x, this.transform.position.y + 0.65f, this.transform.position.z), transform.rotation).GetComponent<Explosion>().setBoom(damage);
         }
         gameObject.GetComponent<SphereCollider>().enabled = true;
         yield return new WaitForSeconds(0.2f);
@@ -64,7 +64,7 @@ public class WoodStuff : MonoBehaviour
         {
             if (hasExplodedOnEnemy == false)
             {
-                other.GetComponent<EnemyHealth>().damageEnemy(damage);
+                other.GetComponentInParent<EnemyHealth>().damageEnemy(damage);
                 hasExplodedOnEnemy = true;
             }
         }

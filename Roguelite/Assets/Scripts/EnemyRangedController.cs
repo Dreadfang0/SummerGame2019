@@ -158,10 +158,12 @@ public class EnemyRangedController : MonoBehaviour
 
     void Update()
     {
+        
         if (health <= 0)
         {
-            GameObject Death = (GameObject)Instantiate(DeathParticle, new Vector3 (this.transform.position.x, this.transform.position.y + 1.14f, this.transform.position.z), transform.rotation);
-            Destroy(Death, 1);
+            GameObject Death = (GameObject)Instantiate(DeathParticle, new Vector3 (this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), transform.rotation);
+            Destroy(Death, 3);
+            Debug.Log("Is this death?");
             float healthDropChance = Random.Range(0, 5);
             if (healthDropChance == 4)
             {
@@ -273,15 +275,26 @@ public class EnemyRangedController : MonoBehaviour
         if (directionMultiplier == -1)
         {
             animator.SetInteger("AnimState", 2);
+            if (audioSource.isPlaying == false && attackTimerStarted == false)
+            {
+                audioSource.clip = idleAudio;
+                audioSource.Play();
+            }
         }
         if (directionMultiplier == 1)
         {
             animator.SetInteger("AnimState", 1);
+            if (audioSource.isPlaying == false && attackTimerStarted == false)
+            {
+                audioSource.clip = idleAudio;
+                audioSource.Play();
+            }
         }
         if (directionMultiplier == 0)
         {
             animator.SetInteger("AnimState", 0);
         }
+        
         Vector3 direction = (playerTransform.position - transform.position); // Finds the direction where the player is.
         Vector3 runTo = transform.position + (direction * directionMultiplier);
         NavMeshHit navHitEngage;
@@ -291,6 +304,11 @@ public class EnemyRangedController : MonoBehaviour
     void StrafeLeft()
     {
         strafing = true;
+        if (audioSource.isPlaying == false && attackTimerStarted == false)
+        {
+            audioSource.clip = idleAudio;
+            audioSource.Play();
+        }
         animator.SetInteger("AnimState", 3);
         Vector3 offsetPlayer = playerTransform.transform.position - transform.position;
         Vector3 dir = Vector3.Cross(offsetPlayer, Vector3.up);
@@ -303,6 +321,11 @@ public class EnemyRangedController : MonoBehaviour
     void StrafeRight()
     {
         strafing = true;
+        if (audioSource.isPlaying == false && attackTimerStarted == false)
+        {
+            audioSource.clip = idleAudio;
+            audioSource.Play();
+        }
         animator.SetInteger("AnimState", 4);
         Vector3 offsetPlayer = transform.position - playerTransform.transform.position;
         Vector3 dir = Vector3.Cross(offsetPlayer, Vector3.up);
@@ -343,8 +366,10 @@ public class EnemyRangedController : MonoBehaviour
         attackTimerStarted = true;
         MoveAtPlayer(0);
         strafing = false;
+        audioSource.clip = null;      
         yield return new WaitForSeconds(attackingTime / 2);
         GameObject.Instantiate(Projectile, ProjectileLauncher.transform.position, ProjectileLauncher.transform.rotation).gameObject.GetComponent<EnemyProjectile>().SetDamage(damage);
+        audioSource.PlayOneShot(attackAudio);
         yield return new WaitForSeconds(attackingTime / 2);
         StartCoroutine("AttackCooldown");
         State = stateChanges.stateAfterAttackTimer;
@@ -377,7 +402,7 @@ public class EnemyRangedController : MonoBehaviour
     public void damageEnemy(int dmg)
     {
         health -= dmg;
+        audioSource.clip = damagedAudio;
+        audioSource.Play();
     }
-
- 
 }

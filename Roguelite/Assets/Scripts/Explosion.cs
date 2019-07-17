@@ -38,7 +38,7 @@ public class Explosion : MonoBehaviour
     {
         hasExploded = false;
         explode = true;
-        Destroy(gameObject, 0.2f);
+        Destroy(gameObject, 1f);
         yield return new WaitForSeconds(0.05f);
     }
 
@@ -55,7 +55,7 @@ public class Explosion : MonoBehaviour
             {
                 if (hasExploded == false)
                 {
-                    other.GetComponent<EnemyHealth>().damageEnemy(Mathf.RoundToInt(playerController.currentDamage * playerController.explosiveMultiplier));
+                    other.GetComponentInParent<EnemyHealth>().damageEnemy(Mathf.RoundToInt(playerController.currentDamage * playerController.explosiveMultiplier));
                     hasExploded = true;
                 }
             }
@@ -107,7 +107,7 @@ public class Explosion : MonoBehaviour
             {
                 if (hasExplodedOnEnemy == false)
                 {
-                    other.GetComponent<EnemyHealth>().damageEnemy(Mathf.RoundToInt(playerController.currentDamage * playerController.explosiveMultiplier));
+                    other.GetComponentInParent<EnemyHealth>().damageEnemy(Mathf.RoundToInt(playerController.currentDamage * playerController.explosiveMultiplier));
                     hasExplodedOnEnemy = true;
                 }
             }

@@ -275,10 +275,20 @@ public class DOOT : MonoBehaviour
         if (directionMultiplier == -1)
         {
             animator.SetInteger("AnimState", 2);
+            if (audioSource.isPlaying == false && attackTimerStarted == false)
+            {
+                audioSource.clip = idleAudio;
+                audioSource.Play();
+            }
         }
         if (directionMultiplier == 1)
         {
             animator.SetInteger("AnimState", 1);
+            if (audioSource.isPlaying == false && attackTimerStarted == false)
+            {
+                audioSource.clip = idleAudio;
+                audioSource.Play();
+            }
         }
         if (directionMultiplier == 0)
         {
@@ -293,6 +303,11 @@ public class DOOT : MonoBehaviour
     void StrafeLeft()
     {
         strafing = true;
+        if (audioSource.isPlaying == false && attackTimerStarted == false)
+        {
+            audioSource.clip = idleAudio;
+            audioSource.Play();
+        }
         animator.SetInteger("AnimState", 3);
         Vector3 offsetPlayer = playerTransform.transform.position - transform.position;
         Vector3 dir = Vector3.Cross(offsetPlayer, Vector3.up);
@@ -305,6 +320,11 @@ public class DOOT : MonoBehaviour
     void StrafeRight()
     {
         strafing = true;
+        if (audioSource.isPlaying == false && attackTimerStarted == false)
+        {
+            audioSource.clip = idleAudio;
+            audioSource.Play();
+        }
         animator.SetInteger("AnimState", 4);
         Vector3 offsetPlayer = transform.position - playerTransform.transform.position;
         Vector3 dir = Vector3.Cross(offsetPlayer, Vector3.up);
@@ -346,9 +366,10 @@ public class DOOT : MonoBehaviour
         animator.SetInteger("AnimState", 5);
         MoveAtPlayer(0);
         strafing = false;
-        //audioSource.clip = attackAudio;
-        //audioSource.Play();
+        audioSource.clip = attackAudio;
+        audioSource.Play();
         yield return new WaitForSeconds(attackingTime);
+        audioSource.Stop();
         StartCoroutine("AttackCooldown");
         State = stateChanges.stateAfterAttackTimer;
         attackTimerStarted = false;
