@@ -22,6 +22,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     GameObject BurningParticle;
     [SerializeField]
+    GameObject FreezeParticle;
+    [SerializeField]
     GameObject HurtParticle;
     [SerializeField]
     bool isFlamington;
@@ -89,7 +91,8 @@ public class EnemyHealth : MonoBehaviour
     IEnumerator Slow(float slow)
     {
         if (GetComponentInParent<NavMeshAgent>() != null)
-        { 
+        {
+            FreezeParticle.GetComponent<ParticleSystem>().Play();
             if (isSlowed == false)
             {
                 previousSpeed = GetComponentInParent<NavMeshAgent>().speed;
@@ -98,6 +101,7 @@ public class EnemyHealth : MonoBehaviour
             GetComponentInParent<NavMeshAgent>().speed -= previousSpeed * slow;
             yield return new WaitForSeconds(3);
             GetComponentInParent<NavMeshAgent>().speed = previousSpeed;
+            FreezeParticle.GetComponent<ParticleSystem>().Stop();
             isSlowed = false;
         }
     }
