@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
     bool isFlamington;
     bool isSlowed;
     float previousSpeed;
+    [SerializeField]
+    AudioSource burningSound;
     public void damageEnemy(int dmg)
     {
         HurtParticle.GetComponent<ParticleSystem>().Play();
@@ -76,6 +78,7 @@ public class EnemyHealth : MonoBehaviour
     IEnumerator burning()
     {
         BurningParticle.GetComponent<ParticleSystem>().Play();
+        burningSound.Play();
         for (int i = 0; i < fireTickAmount; i++)
         {
             yield return new WaitForSeconds(fireTickRate);
@@ -83,6 +86,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log(i);
         }
         BurningParticle.GetComponent<ParticleSystem>().Stop();
+        burningSound.Stop();
     }
     public void slowed(float slowAmount)
     {
