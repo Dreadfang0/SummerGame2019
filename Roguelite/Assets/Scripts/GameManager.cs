@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
     public Toggle mouseInversion;
 
     public AudioMixer masterMixer;
+    public AudioMixerSnapshot paused, unpaused;
     public AudioMixer DOOTMixer;
     //public AudioMixer musicMixer;
     //public AudioMixer soundMixer;
@@ -411,6 +412,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         pausedGame = true;
         Cursor.visible = true;
+        paused.TransitionTo(0);
         // Add menu stuff here
 
     }
@@ -426,6 +428,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         MouseSensitivity();
         saveSettings();
+        unpaused.TransitionTo(0);
     }
     //public void SetSoundVolume(float newVolume) // |-----VOLUME CHANGING-----|
     //{
