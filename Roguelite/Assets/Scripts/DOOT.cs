@@ -254,7 +254,6 @@ public class DOOT : MonoBehaviour
                 {
                     StartCoroutine("Attack");
                 }
-                audioSource.PlayOneShot(attackAudio, 1);
 
             }
         }

@@ -254,8 +254,6 @@ public class EnemyRangedController : MonoBehaviour
                 {
                     StartCoroutine("Attack");
                 }
-                audioSource.PlayOneShot(attackAudio, 1);
-
             }
         }
         else
@@ -366,7 +364,6 @@ public class EnemyRangedController : MonoBehaviour
         attackTimerStarted = true;
         MoveAtPlayer(0);
         strafing = false;
-        audioSource.clip = null;      
         yield return new WaitForSeconds(attackingTime / 2);
         GameObject.Instantiate(Projectile, ProjectileLauncher.transform.position, ProjectileLauncher.transform.rotation).gameObject.GetComponent<EnemyProjectile>().SetDamage(damage);
         audioSource.PlayOneShot(attackAudio);
