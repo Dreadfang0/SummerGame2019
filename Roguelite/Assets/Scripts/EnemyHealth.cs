@@ -31,6 +31,8 @@ public class EnemyHealth : MonoBehaviour
     float previousSpeed;
     [SerializeField]
     AudioSource burningSound;
+    int burnStacks;
+    int slowStacks;
     public void damageEnemy(int dmg)
     {
         HurtParticle.GetComponent<ParticleSystem>().Play();
@@ -79,14 +81,19 @@ public class EnemyHealth : MonoBehaviour
     {
         BurningParticle.GetComponent<ParticleSystem>().Play();
         burningSound.Play();
+        burnStacks++;
         for (int i = 0; i < fireTickAmount; i++)
         {
             yield return new WaitForSeconds(fireTickRate);
             damageEnemy(fireDamage);
             Debug.Log(i);
         }
-        BurningParticle.GetComponent<ParticleSystem>().Stop();
-        burningSound.Stop();
+        burnStacks--;
+        if (burnStacks == 0)
+        {
+            BurningParticle.GetComponent<ParticleSystem>().Stop();
+            burningSound.Stop();
+        }
     }
     public void slowed(float slowAmount)
     {
@@ -97,6 +104,7 @@ public class EnemyHealth : MonoBehaviour
         if (GetComponentInParent<NavMeshAgent>() != null)
         {
             FreezeParticle.GetComponent<ParticleSystem>().Play();
+            slowStacks++;
             if (isSlowed == false)
             {
                 previousSpeed = GetComponentInParent<NavMeshAgent>().speed;
@@ -104,9 +112,13 @@ public class EnemyHealth : MonoBehaviour
             }
             GetComponentInParent<NavMeshAgent>().speed -= previousSpeed * slow;
             yield return new WaitForSeconds(3);
-            GetComponentInParent<NavMeshAgent>().speed = previousSpeed;
-            FreezeParticle.GetComponent<ParticleSystem>().Stop();
-            isSlowed = false;
+            slowStacks--;
+            if (slowStacks == 0)
+            {
+                GetComponentInParent<NavMeshAgent>().speed = previousSpeed;
+                FreezeParticle.GetComponent<ParticleSystem>().Stop();
+                isSlowed = false;
+            }
         }
     }
 }
