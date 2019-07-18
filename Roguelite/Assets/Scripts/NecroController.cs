@@ -70,7 +70,7 @@ public class NecroController : MonoBehaviour
 
     // Audio files
     public AudioClip idleAudio;
-    public AudioClip chaseAudio;
+    public AudioClip specialAudio;
     public AudioClip damagedAudio;
     public AudioClip attackAudio;
     RaycastHit hit;
@@ -133,8 +133,6 @@ public class NecroController : MonoBehaviour
                 {
                     StartCoroutine("Attack");
                 }
-                audioSource.PlayOneShot(attackAudio, 1);
-
             }
             else if (State == EnemyState.Idle)
             {
@@ -157,6 +155,10 @@ public class NecroController : MonoBehaviour
             }
             if (health <= 0)
             {
+                if (perkSystem.LifeSteal == true)
+                {
+                    perkSystem.LifeStealHeal();
+                }
                 isDead = true;
             }
             if (attackOnCooldown == false && SpecialActive == false)
@@ -167,12 +169,13 @@ public class NecroController : MonoBehaviour
         else
         {
             //disable stuff here
-            if (perkSystem.LifeSteal == true)
-            {
-                perkSystem.LifeStealHeal();
-            }
+            
             animator.SetInteger("AnimState", 3);
-            Destroy(gameObject,5);
+            gameObject.tag = "Untagged";
+            foreach (Transform t in transform)
+            {
+                t.gameObject.tag = "Untagged";
+            }
         }
         
     }
@@ -187,6 +190,7 @@ public class NecroController : MonoBehaviour
             GameObject.Instantiate(WineBottle, BottleTossPoints[i].transform.position, transform.rotation).GetComponent<Rigidbody>().AddExplosionForce(Random.Range(bottleLaunchMin,bottleLaunchMax), ExplosionPoint.transform.position, 10, 0.4f, ForceMode.Impulse);
             State = EnemyState.Idle;
         }
+        audioSource.PlayOneShot(specialAudio);
         yield return new WaitForSeconds(SpecialTime);
         SpecialActive = false;
         timerStarted = false;
@@ -205,6 +209,7 @@ public class NecroController : MonoBehaviour
         yield return new WaitForSeconds(attackingTime);
         Casting.Play();
         GameObject.Instantiate(Projectile, ProjectileLauncher.transform.position, ProjectileLauncher.transform.rotation).gameObject.GetComponent<EnemyProjectile>().SetDamage(damage);
+        audioSource.PlayOneShot(attackAudio);
         StartCoroutine("AttackCooldown");
         State = EnemyState.Idle;
         attackTimerStarted = false;
