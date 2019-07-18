@@ -211,10 +211,7 @@ public class EnemyBaseController : MonoBehaviour
                 }
                 if (chaseOnCoolDown == true && distance >= positioningDistance && agent.remainingDistance == 0)
                 {
-                    
-                        Debug.Log("YEET");
-                        animator.SetInteger("AnimState", 0);
-                    
+                        animator.SetInteger("AnimState", 0);   
                 }
             }
             else if (State == EnemyState.Special) // --FLEEING--------------------------------------------------------
@@ -235,8 +232,6 @@ public class EnemyBaseController : MonoBehaviour
                 {
                     StartCoroutine("Attack");
                 }
-                audioSource.PlayOneShot(attackAudio, 1);
-
             }
         }
         else
@@ -264,9 +259,23 @@ public class EnemyBaseController : MonoBehaviour
     public void MoveAtPlayer(int directionMultiplier) // 1 = move towards player, -1 = move away from player.
     {
         if (directionMultiplier == 1)
+        {
             animator.SetInteger("AnimState", 1);
+            if (audioSource.isPlaying == false && attackTimerStarted == false)
+            {
+                audioSource.clip = idleAudio;
+                audioSource.Play();
+            }
+        }
         if (directionMultiplier == -1)
+        {
             animator.SetInteger("AnimState", 1);
+            if (audioSource.isPlaying == false && attackTimerStarted == false)
+            {
+                audioSource.clip = idleAudio;
+                audioSource.Play();
+            }
+        }
         
         Vector3 direction = (playerTransform.position - transform.position); // Finds the direction where the player is.
         Vector3 runTo = transform.position + (direction * directionMultiplier);
@@ -291,7 +300,9 @@ public class EnemyBaseController : MonoBehaviour
         attackTimerStarted = true;
         animator.SetInteger("AnimState", 4);
         MoveAtPlayer(0);
-        yield return new WaitForSeconds(attackingTime);
+        yield return new WaitForSeconds(attackingTime/2);
+        audioSource.PlayOneShot(attackAudio);
+        yield return new WaitForSeconds(attackingTime/2);
         StartCoroutine("ChaseCoolDown");
         State = stateChanges.stateAfterAttackTimer;
         attackTimerStarted = false;

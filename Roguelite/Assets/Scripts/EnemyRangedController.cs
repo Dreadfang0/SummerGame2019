@@ -163,7 +163,6 @@ public class EnemyRangedController : MonoBehaviour
         {
             GameObject Death = (GameObject)Instantiate(DeathParticle, new Vector3 (this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), transform.rotation);
             Destroy(Death, 3);
-            Debug.Log("Is this death?");
             float healthDropChance = Random.Range(0, 5);
             if (healthDropChance == 4)
             {
