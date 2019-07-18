@@ -75,11 +75,16 @@ public class RoomSpawner : MonoBehaviour
                     Enemy.GetComponent<EnemyBaseController>().enabled = true;
                     Debug.Log("Mele skelly");
                 }
-                else
+                else if (Enemy.GetComponent<EnemyRangedController>() != null)
                 {
                     //Enemy.GetComponent<EnemyBaseController>().enabled = true;
                     Enemy.GetComponent<EnemyRangedController>().enabled = true;
                     Debug.Log("Ranged skelly");
+                }
+                else if (Enemy.GetComponent<DOOT>() != null)
+                {
+                    Enemy.GetComponent<DOOT>().enabled = true;
+                    Debug.Log("DOOT skelly");
                 }
             }
         }

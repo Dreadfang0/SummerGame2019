@@ -13,6 +13,7 @@ public class PlayerMover : MonoBehaviour
     public int nextLevel;
     public int SkellyBoss = 10;
     public int NecroBoss = 20;
+    public GameObject SkellyRoom, NecroRoom;
     // Start is called before the first frame update
 
 
@@ -20,6 +21,8 @@ public class PlayerMover : MonoBehaviour
 
     private void OnEnable()
     {
+        //SkellyRoom = GameObject.Find("SkellyBossRoom");
+        //NecroRoom = GameObject.Find("NecroBossRoom");
         if (nextLevel == 0)
         {
             //Fukken skip cause spaghet :-DDD
@@ -41,6 +44,7 @@ public class PlayerMover : MonoBehaviour
     void Start()
     {
 
+
     }
 
     // Update is called once per frame
@@ -54,6 +58,7 @@ public class PlayerMover : MonoBehaviour
         {
             if (nextLevel == SkellyBoss)
             {
+                SkellyRoom.SetActive(true);
                 master.GetComponent<RoomSpawner>().KillYourChildren();
                 player.transform.position = SkellyBossLevel.transform.position;
                 SkellyBoss += 20;
@@ -61,6 +66,7 @@ public class PlayerMover : MonoBehaviour
             }
             else if (nextLevel == NecroBoss)
             {
+                NecroRoom.SetActive(true);
                 master.GetComponent<RoomSpawner>().KillYourChildren();
                 player.transform.position = NecroBossLevel.transform.position;
                 NecroBoss += 20;
@@ -81,8 +87,6 @@ public class PlayerMover : MonoBehaviour
             player.GetComponent<MouseLook>().lookAngles = new Vector2(0, 0);
             Cursor.lockState = CursorLockMode.Locked;
         }
-
-
     }
 }
 
