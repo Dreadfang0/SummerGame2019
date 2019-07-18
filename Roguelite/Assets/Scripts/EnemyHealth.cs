@@ -33,6 +33,10 @@ public class EnemyHealth : MonoBehaviour
     AudioSource burningSound;
     int burnStacks;
     int slowStacks;
+    [SerializeField]
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip damagedAudio;
     public void damageEnemy(int dmg)
     {
         HurtParticle.GetComponent<ParticleSystem>().Play();
@@ -68,6 +72,7 @@ public class EnemyHealth : MonoBehaviour
         {
             gameObject.GetComponent<DOOT>().health -= dmg;
         }
+        audioSource.PlayOneShot(damagedAudio);
     }
     public void burnEnemy(int dmg)
     {

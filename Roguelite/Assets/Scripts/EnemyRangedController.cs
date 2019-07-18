@@ -398,6 +398,6 @@ public class EnemyRangedController : MonoBehaviour
     public void damageEnemy(int dmg)
     {
         health -= dmg;
-        audioSource.PlayOneShot(damagedAudio);
+        
     }
 }
