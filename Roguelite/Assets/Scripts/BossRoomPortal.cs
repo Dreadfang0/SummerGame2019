@@ -10,20 +10,15 @@ public class BossRoomPortal : MonoBehaviour
     public EnemySpawner EnemySpawner;
     public ClutterSpawner ClutterSpawner;
     public GameObject ParentRoom;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    public PlayerController playerController;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
+            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            playerController.portalSource.Play();
+
             player.transform.position = StartPoint.transform.position;
             player.transform.rotation = StartPoint.transform.rotation;
             master.GetComponent<RoomSpawner>().KillYourChildren();
