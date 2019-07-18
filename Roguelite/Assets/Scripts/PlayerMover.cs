@@ -8,6 +8,7 @@ public class PlayerMover : MonoBehaviour
     public GameObject SkellyBossLevel;
     public GameObject NecroBossLevel;
     public GameObject player;
+    public PlayerController playerController;
     public GameObject master;
     public EnemySpawner EnemySpawner;
     public int nextLevel;
@@ -33,6 +34,7 @@ public class PlayerMover : MonoBehaviour
         }
         nextLevel++;
         
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
     }
 
@@ -41,21 +43,13 @@ public class PlayerMover : MonoBehaviour
         GameManager.instance.LevelUp();
     }
 
-    void Start()
-    {
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
+            playerController.portalSource.Play();
+
+
             if (nextLevel == SkellyBoss)
             {
                 SkellyRoom.SetActive(true);

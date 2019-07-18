@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
     public PerkSystem perkSystem;
     public Animator animator;
 
-    public AudioSource footstepSource;
+    public AudioSource footstepSource, portalSource;
     private bool isMoving;
 
     private void Awake()
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             berserkStackAmount = 1 - ((double)health / (double)healthMax);
             Shoot();
             Reload();
-            Sounds();
+            WalkingSounds();
         }
     }
 
@@ -541,10 +541,10 @@ public class PlayerController : MonoBehaviour
     {
         health = Mathf.Clamp(health, healthMin, healthMax);
 
-        if (health == healthMin)
-        {
-            Death();
-        }
+        //if (health == healthMin)
+        //{
+        //    Death();
+        //}
     }
 
     void Armor()
@@ -552,14 +552,14 @@ public class PlayerController : MonoBehaviour
         armor = Mathf.Clamp(armor, armorMin, armorMax);
     }
 
-    void Death()
+    /*void Death()
     {
         if(hasDied == false)
         {
             hasDied = true;
             Debug.Log("You got BONED");
         }
-    }
+    }*/
 
     /*public void Experience()
     {
@@ -662,7 +662,7 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.reload.SetActive(false);
     }
 
-    void Sounds()
+    void WalkingSounds()
     {
         if(isMoving == false && isGrounded == true)
         {

@@ -10,7 +10,7 @@ public class Explosion : MonoBehaviour
     [SerializeField]
     bool PlayerBoom;
     PlayerController playerController;
-    int damage = 5;
+    public int damage = 5;
     public bool isBoomington;
     bool hasExplodedOnEnemy;
     bool hasExplodedOnPlayer;

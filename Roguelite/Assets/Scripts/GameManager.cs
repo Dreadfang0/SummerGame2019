@@ -233,9 +233,9 @@ public class GameManager : MonoBehaviour
             BossHealthHolder.SetActive(true);
             float BossPercentage = BossHp / BossMaxHp;
             BossHealthBar.fillAmount = BossPercentage;
-            Debug.Log("% " + BossPercentage);
-            Debug.Log("cur " + BossHp);
-            Debug.Log("Max " + BossMaxHp);
+            //Debug.Log("% " + BossPercentage);
+            //Debug.Log("cur " + BossHp);
+            //Debug.Log("Max " + BossMaxHp);
             if (BossHp <= 0)
             {
                 BossHealthHolder.SetActive(false);
@@ -339,7 +339,7 @@ public class GameManager : MonoBehaviour
                 {
                     playerController.armor -= Mathf.RoundToInt((float)(damage * playerController.armorAbsorption));
                     playerController.health -= Mathf.RoundToInt((float)(damage * playerController.armorSpill));
-                    Debug.Log(Mathf.RoundToInt((float)(damage * playerController.armorSpill)));
+                    //Debug.Log(Mathf.RoundToInt((float)(damage * playerController.armorSpill)));
                 }
 
             }
@@ -471,7 +471,7 @@ public class GameManager : MonoBehaviour
     }
     public void PlayerDeath() // |-----DEATH-----|
     {
-        Debug.Log("DEAD");
+        //Debug.Log("DEAD");
         //Dead.SetActive(true);
         //GameObject.Instantiate(BloodPartic, PlayerPosition.position, BloodPartic.transform.rotation);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
