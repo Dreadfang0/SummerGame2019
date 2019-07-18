@@ -9,6 +9,7 @@ public class StarRoomPortal : MonoBehaviour
     public GameObject master;
     public EnemySpawner EnemySpawner;
     public ClutterSpawner ClutterSpawner;
+    public GameObject ParentRoom;
 
 
     // Start is called before the first frame update
@@ -36,8 +37,6 @@ public class StarRoomPortal : MonoBehaviour
                  player.transform.position = BossLevel.transform.position;
 
              } */
-
-
             player.transform.position = StartPoint.transform.position;
             master.GetComponent<RoomSpawner>().KillYourChildren();
             master.GetComponent<RoomSpawner>().MakeMoreChildren();
@@ -47,10 +46,7 @@ public class StarRoomPortal : MonoBehaviour
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
             player.GetComponent<MouseLook>().lookAngles = new Vector2(0, 0);
             Cursor.lockState = CursorLockMode.Locked;
-
-
-
-
+            ParentRoom.SetActive(false);
 
         }
     }
