@@ -125,11 +125,13 @@ public class GameManager : MonoBehaviour
     //public AudioMixer musicMixer;
     //public AudioMixer soundMixer;
 
-    float timer; // Used for regen.
-    [SerializeField]
-    private AudioSource audioSource;
-    [SerializeField]
-    private AudioSource audioSoundSource;
+    //float timer; // Used for regen.
+    //[SerializeField]
+    //private AudioSource audioSource;
+    //[SerializeField]
+    //private AudioSource audioSoundSource;
+    public AudioSource playerDamageSource;
+    
 
     // Fish Audio files
     public AudioClip MainMenuMusic;
@@ -273,7 +275,7 @@ public class GameManager : MonoBehaviour
             PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform;
         }
         
-        timer += Time.deltaTime; // Used by regen.
+        //timer += Time.deltaTime; // Used by regen.
 
         if (Input.GetKeyDown(KeyCode.P)) // Used for pausing the game
         {
@@ -324,6 +326,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerController.health > 0)
         {
+            playerDamageSource.Play();
             if (playerController.armor > 0)
             {
                 if (damage > playerController.armor)
@@ -372,7 +375,7 @@ public class GameManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         SceneManager.LoadScene(2);
-        audioSource.clip = Area1Music;
+        //audioSource.clip = Area1Music;
     }
     public void openSettingsMenu() // |-----OPEN SETTINGS-----|
     {
@@ -455,11 +458,11 @@ public class GameManager : MonoBehaviour
     {
         if (trackNumber == 1)
         {
-            audioSource.clip = Area1Music;
+            //audioSource.clip = Area1Music;
         }
         else if (trackNumber == 2)
         {
-            audioSource.clip = Area2Music;
+            //audioSource.clip = Area2Music;
         }
     }
     public void WinGame() // |-----WIN GAME-----|
