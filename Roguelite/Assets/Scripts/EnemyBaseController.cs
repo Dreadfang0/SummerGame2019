@@ -228,6 +228,7 @@ public class EnemyBaseController : MonoBehaviour
             }
             else if (State == EnemyState.Attacking) // --ATTACKING--------------------------------------------------
             {
+                transform.LookAt(playerTransform);
                 if (attackTimerStarted == false) // Start attacktimer, when it ends switch back to roaming
                 {
                     StartCoroutine("Attack");
