@@ -15,7 +15,7 @@ public class BulletScript : MonoBehaviour
     //public int damage;
     public PlayerController playerController;
     public PerkSystem perkSystem;
-    public GameObject explosive;
+    public GameObject explosive, woodHit, wallHit;
     private int damage;
     private bool isCrit;
 
@@ -103,6 +103,7 @@ public class BulletScript : MonoBehaviour
         else if (other.gameObject.tag == "WoodStuff")
         {
             other.GetComponent<WoodStuff>().BreakingWood();
+            Instantiate(woodHit, this.transform.position, transform.rotation);
 
             if (perkSystem.ExplosiveProjectiles == true)
             {
@@ -115,6 +116,8 @@ public class BulletScript : MonoBehaviour
 
         else if (other.gameObject.tag == "Ground")
         {
+            Instantiate(wallHit, this.transform.position, transform.rotation);
+
             if (perkSystem.ExplosiveProjectiles == true)
             {
                 GameObject Boom = (GameObject)Instantiate(explosive, this.transform.position, transform.rotation);
