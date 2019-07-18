@@ -20,7 +20,7 @@ public class BarreltonSpawn : MonoBehaviour
     {
         if(health <= 0)
         {
-            GameObject.Instantiate(barrelton, this.transform.position, barrelton.transform.rotation);
+            GameObject.Instantiate(barrelton, this.transform.position, barrelton.transform.rotation).GetComponent<EnemyBaseController>().Increase(GameObject.Find("Spawner").GetComponent<EnemySpawner>().difficulty);
             GameObject Wood = (GameObject)Instantiate(WoodParticle, this.transform.position, barrelton.transform.rotation);
             Destroy(Wood, 1);
             Destroy(gameObject);

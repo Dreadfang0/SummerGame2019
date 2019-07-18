@@ -24,10 +24,12 @@ public class EnemySpawner : MonoBehaviour {
     GameObject gMeleeBoss;
     [SerializeField]
     GameObject gRangedBoss;
-   /* [SerializeField]
-    GameObject rareMelee;
     [SerializeField]
-    GameObject rareRanged; */
+    GameObject gTrapEnemy;
+    /* [SerializeField]
+     GameObject rareMelee;
+     [SerializeField]
+     GameObject rareRanged; */
 
     //Sets a spawn area for the spawnable object
     [SerializeField]
@@ -66,7 +68,7 @@ public class EnemySpawner : MonoBehaviour {
             if (spawntype == 0)
             {
                 int y = Random.Range(1, 100);
-                if (y > 10)
+                if (y > 15)
                 {
                     Debug.Log("Melee");
                     Instantiate(gMeleeEnemy[0], newPos, gMeleeEnemy[0].transform.rotation).gameObject.GetComponent<EnemyBaseController>().Increase(difficulty);
@@ -76,6 +78,11 @@ public class EnemySpawner : MonoBehaviour {
                     int m = Random.Range(1, gMeleeEnemy.Length);
                     Debug.Log("RareMelee");
                     Instantiate(gMeleeEnemy[m], newPos, gMeleeEnemy[m].transform.rotation).gameObject.GetComponent<EnemyBaseController>().Increase(difficulty);
+                }
+                else if (y > 10)
+                {
+                    Debug.Log("TrapSkelly");
+                    Instantiate(gTrapEnemy, newPos, gTrapEnemy.transform.rotation);
                 }
             }
             if (spawntype == 1)
