@@ -317,6 +317,7 @@ public class EnemyBaseController : MonoBehaviour
     public void damageEnemy(int dmg)
     {
         health -= dmg;
+        audioSource.PlayOneShot(damagedAudio);
     }
 
     public void Increase(float difficulty)

@@ -8,6 +8,8 @@ public class HealOrb : MonoBehaviour
     int healAmount;
     [SerializeField]
     bool isArmor;
+    [SerializeField]
+    GameObject pickUpParticle;
     private void Start()
     {
         gameObject.transform.parent = GameObject.Find("RoomMaster").transform;
@@ -19,9 +21,11 @@ public class HealOrb : MonoBehaviour
             if (other.GetComponent<PlayerController>().health < other.GetComponent<PlayerController>().healthMax && isArmor == false)
             {
                 GameManager.instance.healPlayer(healAmount);
+                GameObject Particle = (GameObject)Instantiate(pickUpParticle, this.transform.position, transform.rotation);
+                Destroy(Particle, 2);
                 Destroy(gameObject);
             }
-            if (isArmor == true)
+            if (isArmor == true && other.GetComponent<PlayerController>().armor < other.GetComponent<PlayerController>().armorMax)
             {
                 GameManager.instance.armorPlayer(healAmount);
                 Destroy(gameObject);
