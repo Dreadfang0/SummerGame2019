@@ -133,13 +133,13 @@ public class EnemySpawner : MonoBehaviour {
         //EnemyCount.text = "enemies: " + EnemyAmount;
 
         // Changes UI to display final score if we dont make the boss ending.
-        if (EnemyAmount == 0)  
+        /*if (EnemyAmount == 0)  
         {              
                 EnemyPanel.SetActive(false);
                 ScorePanel.SetActive(true);
             
             //ScoreText.text = "Game Over" + "\n\nYour Score: " + (EnemyAmount * scoreGain);
-        }
+        } */
     }
     // This is used to spawn enemies on the navmesh.
     Vector3 RandomNavPos(float xSize, float zSize, float dist, int layermask)
