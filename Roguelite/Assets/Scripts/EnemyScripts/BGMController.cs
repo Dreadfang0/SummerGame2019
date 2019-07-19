@@ -110,6 +110,9 @@ public class BGMController : MonoBehaviour
 
     public PerkSystem perkSystem;
 
+    [SerializeField]
+    GameObject DeathParticle;
+
     void Start()
     {
         perkSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<PerkSystem>();
@@ -180,9 +183,16 @@ public class BGMController : MonoBehaviour
                     /*if (audioSource.isPlaying == false)
                         audioSource.PlayOneShot(damagedAudio, 1);*/
                     StartCoroutine("SpecialTimer");
+                    audioSource.clip = null;
                 }
                 else
                 {
+                    if (audioSource.isPlaying == false)
+                    {
+                        audioSource.clip = chaseAudio;
+                        audioSource.Play();
+                    }
+                    
                     animator.SetInteger("AnimState", 2);
                     float dist = agent.remainingDistance;
                     if (dist != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance == 0)
@@ -201,11 +211,13 @@ public class BGMController : MonoBehaviour
                 {
                     StartCoroutine("Attack");
                 }
-                audioSource.PlayOneShot(attackAudio, 1);
+                
 
             }
             if (health <= 0)
             {
+                GameObject Death = (GameObject)Instantiate(DeathParticle, new Vector3(this.transform.position.x, this.transform.position.y + 1.14f, this.transform.position.z), transform.rotation);
+                Destroy(Death, 1);
                 isDead = true;
             }
         }
@@ -223,6 +235,11 @@ public class BGMController : MonoBehaviour
 
     public void MoveAtPlayer(int directionMultiplier) // 1 = move towards player, -1 = move away from player.
     {
+        if (audioSource.isPlaying == false)
+        {
+            audioSource.clip = idleAudio;
+            audioSource.Play();
+        }
         Vector3 direction = (playerTransform.position - transform.position); // Finds the direction where the player is.
         Vector3 runTo = transform.position + (direction * directionMultiplier);
         NavMeshHit navHitEngage;
@@ -261,8 +278,9 @@ public class BGMController : MonoBehaviour
         attackTimerStarted = true;
         animator.SetInteger("AnimState", 4);
         MoveAtPlayer(0);
-        
-        yield return new WaitForSeconds(attackingTime);
+        yield return new WaitForSeconds(attackingTime /2);
+        audioSource.PlayOneShot(attackAudio);
+        yield return new WaitForSeconds(attackingTime / 2);
         //Attack animation that swings the weapon or shoots projectile
         State = stateChanges.stateAfterAttackTimer;
         attackTimerStarted = false;
