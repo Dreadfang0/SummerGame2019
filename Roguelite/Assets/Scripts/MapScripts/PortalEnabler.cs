@@ -6,6 +6,7 @@ public class PortalEnabler : MonoBehaviour
 {
     public GameObject portal;
     public GameObject bossPortal;
+    public GameObject necroPortal;
 
     public int enemies;
     // Start is called before the first frame update
@@ -40,11 +41,13 @@ public class PortalEnabler : MonoBehaviour
         {
             portal.SetActive(false);
             bossPortal.SetActive(false);
+            necroPortal.SetActive(false);
         }
         else if (enemies == 0)
         {
             portal.SetActive(true);
             bossPortal.SetActive(true);
+            necroPortal.SetActive(true);
         }
 
     }

@@ -16,6 +16,7 @@ public class BossRoomPortal : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+
             playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             playerController.portalSource.Play();
 
@@ -30,7 +31,9 @@ public class BossRoomPortal : MonoBehaviour
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
             player.GetComponent<MouseLook>().lookAngles = new Vector2(0, 0);
             Cursor.lockState = CursorLockMode.Locked;
+            Destroy(GameObject.Find("Necromancer(Clone)"));
             ParentRoom.SetActive(false);
+
         }
     }
 }

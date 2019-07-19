@@ -130,7 +130,7 @@ public class PerkSystem : MonoBehaviour
         criticalMasteryText = "Increases your critical hit chance by " + critChanceUpgrade + "% and your critical damage multiplier by " + critMultiUpgrade;
         glassCannonText = "Doubles your damage and halves your health";
         burstText = "Adds another projectile after every projectile you shoot";
-        frostProjectilesText = "Your projectiles now slow enemies movement speed by " + "%";
+        frostProjectilesText = "Your projectiles now slow enemies movement speed by " + (playerController.slowMultiplier * 100) + "%";
     }
 
     public void LifeStealHeal()

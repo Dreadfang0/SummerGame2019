@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField]
     //private AudioSource audioSoundSource;
     public AudioSource playerDamageSource;
+    public AudioSource levelUpSource;
     
 
     // Fish Audio files
@@ -231,7 +232,10 @@ public class GameManager : MonoBehaviour
         }
 
         if (playerController == null)
+        {
             playerController = Player.GetComponent<PlayerController>();
+        }
+
         if (BossActive == true) //BossHealthBar Updater
         {
             BossHealthHolder.SetActive(true);
@@ -245,10 +249,12 @@ public class GameManager : MonoBehaviour
                 BossHealthHolder.SetActive(false);
             }
         }
+
         //if (Input.GetKeyDown(KeyCode.Alpha0))
         //{
         //    LevelUp();
         //}
+
         float currentHealthPercentage = (float)playerController.health / (float)playerController.healthMax;
         healthBar.fillAmount = currentHealthPercentage;
         healthText.text = "Health: " + playerController.health + " / " + playerController.healthMax;
@@ -615,7 +621,8 @@ public class GameManager : MonoBehaviour
             playerController.healthMax += playerController.healthLvlUp;
             playerController.health += playerController.healthLvlUp;
         }
-
+        levelUpSource.Play();
+        //paused.TransitionTo(0);
         perkSystem.UpdateTexts();
         LevelUpMenu.SetActive(true);
         Time.timeScale = 0;
@@ -628,6 +635,7 @@ public class GameManager : MonoBehaviour
 
     public void continueLevelUp()
     {
+        //unpaused.TransitionTo(0);
         LevelUpMenu.SetActive(false);
         Time.timeScale = 1;
         pausedGame = false;
