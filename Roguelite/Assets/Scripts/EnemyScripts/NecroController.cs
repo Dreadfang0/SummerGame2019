@@ -172,7 +172,6 @@ public class NecroController : MonoBehaviour
             
             animator.SetInteger("AnimState", 3);
             gameObject.tag = "Untagged";
-
             AddTagRecursively(this.transform,"Untagged");
         }
         
