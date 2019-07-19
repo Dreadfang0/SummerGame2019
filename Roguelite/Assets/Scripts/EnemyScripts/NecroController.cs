@@ -172,14 +172,18 @@ public class NecroController : MonoBehaviour
             
             animator.SetInteger("AnimState", 3);
             gameObject.tag = "Untagged";
-            foreach (Transform t in transform)
-            {
-                t.gameObject.tag = "Untagged";
-            }
+
+            AddTagRecursively(this.transform,"Untagged");
         }
         
     }
-
+    void AddTagRecursively(Transform trans, string tag)
+    {
+        trans.gameObject.tag = tag;
+        if (trans.GetChildCount() > 0)
+            foreach (Transform t in trans)
+                AddTagRecursively(t, tag);
+    }
     IEnumerator SpecialAbility() // How long enemy flees from player
     {   
         SpecialActive = true;
