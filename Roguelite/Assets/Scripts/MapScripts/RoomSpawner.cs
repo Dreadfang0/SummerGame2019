@@ -14,6 +14,7 @@ public class RoomSpawner : MonoBehaviour
     public int x_Length = 7, z_Length = 7;
     public GameObject[] chunks;
     public GameObject[] rareChunks;
+    public GameObject[] megaRareChunks;
     public GameObject RoomMaster;
     public EnemySpawner EnemySpawner;
     public ClutterSpawner ClutterSpawner;
@@ -116,15 +117,20 @@ public class RoomSpawner : MonoBehaviour
             {
                 int y = Random.Range(1 , 100);
 
-                if (y > 5)
+                if (y > 6)
                 {
                     Instantiate(chunks[Random.Range(0, chunks.Length)], new Vector3(x_Start + (x_Space * (i % x_Length)), 0
                     , z_Length + (-z_Space * (i / z_Length))), Quaternion.Euler(0, 90 * (Random.Range(0, 3)), 0)).gameObject.transform.parent = RoomMaster.transform;
                     //FUKKEN SPAGHET
                 }
-                else if (y <= 5)
+                else if (y <= 6)
                 {
                     Instantiate(rareChunks[Random.Range(0, rareChunks.Length)], new Vector3(x_Start + (x_Space * (i % x_Length)), 0
+                    , z_Length + (-z_Space * (i / z_Length))), Quaternion.Euler(0, 90 * (Random.Range(0, 3)), 0)).gameObject.transform.parent = RoomMaster.transform;
+                }
+                else if (y == 1)
+                {
+                    Instantiate(megaRareChunks[Random.Range(0, megaRareChunks.Length)], new Vector3(x_Start + (x_Space * (i % x_Length)), 0
                     , z_Length + (-z_Space * (i / z_Length))), Quaternion.Euler(0, 90 * (Random.Range(0, 3)), 0)).gameObject.transform.parent = RoomMaster.transform;
                 }
             }
