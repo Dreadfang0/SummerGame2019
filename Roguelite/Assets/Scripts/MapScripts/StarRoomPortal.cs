@@ -21,10 +21,11 @@ public class StarRoomPortal : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        playerController.portalSource.Play();
+
 
         if (other.tag == "Player")
         {
+            playerController.portalSource.Play();
             /* if (nextLevel == 10)
              {
                  player.transform.position = BossLevel.transform.position;

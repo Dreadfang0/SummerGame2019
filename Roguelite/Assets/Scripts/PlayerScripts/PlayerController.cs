@@ -184,12 +184,14 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.S) && moveY != 1)
         {
             moveY = -1;
+            currentSpeed = speed / 2f;
         }
 
         else
         {
             moveY = 0;
             animator.SetBool("isMoving", false);
+            currentSpeed = speed;
         }
 
         if (Input.GetKey(KeyCode.D) && moveX != -1)

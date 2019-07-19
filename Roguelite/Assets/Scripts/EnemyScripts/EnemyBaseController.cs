@@ -45,7 +45,7 @@ public class EnemyBaseController : MonoBehaviour
     [Header("Attack State")]
     public float attackDistance; // Distance before enemy switches to attack state
     public float attackingTime; // Time before stops attacking
-    public float knockbackToPlayer; 
+    public float knockbackToPlayer;
     public float knockbackToSelf;
     public float dashCooldown;
 
