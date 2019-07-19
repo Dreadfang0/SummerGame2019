@@ -110,11 +110,11 @@ public class EnemySpawner : MonoBehaviour {
 
     public void SpawnSkellyBoss()
     {
-        Instantiate(gMeleeBoss, SkellyBossSpawnPoint.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>();
+        Instantiate(gMeleeBoss, SkellyBossSpawnPoint.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
     }
     public void SpawnNecroBoss()
     {
-        Instantiate(gRangedBoss, NecroBossSpawnPoint.position, gRangedBoss.transform.rotation).gameObject.GetComponent<BGMController>();
+        Instantiate(gRangedBoss, NecroBossSpawnPoint.position, gRangedBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
     }
 
 
