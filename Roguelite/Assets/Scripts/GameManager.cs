@@ -483,7 +483,7 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player.GetComponent<PlayerController>().enabled = false;
         lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
-        LvlTxt.text = "LVL:" + lvlReached;
+        LvlTxt.text = "You Reached LVL: " + lvlReached;
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
             MenuSkillCount[i].text = "";
