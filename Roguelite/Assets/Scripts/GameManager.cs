@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI LvlTxt;
     int lvlReached;
-
+    bool burns;
     Vector3 CheckpointPos;
 
     void Awake()
@@ -245,10 +245,10 @@ public class GameManager : MonoBehaviour
                 BossHealthHolder.SetActive(false);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            LevelUp();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    LevelUp();
+        //}
         float currentHealthPercentage = (float)playerController.health / (float)playerController.healthMax;
         healthBar.fillAmount = currentHealthPercentage;
         healthText.text = "Health: " + playerController.health + " / " + playerController.healthMax;
@@ -482,6 +482,7 @@ public class GameManager : MonoBehaviour
         //GameObject.Instantiate(BloodPartic, PlayerPosition.position, BloodPartic.transform.rotation);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player.GetComponent<PlayerController>().enabled = false;
+        StopCoroutine(burning(0));
         lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
         LvlTxt.text = "You Reached LVL: " + lvlReached;
         for (int i = 0; i < MenuSkillCount.Length; i++)
@@ -524,10 +525,12 @@ public class GameManager : MonoBehaviour
     }
     public void burnPlayer(int burn)
     {
-        StartCoroutine(burning(burn));
+        if (burns == false)
+            StartCoroutine(burning(burn));
     }
     IEnumerator burning(int fireDamage) // |----- BURNING -----|
     {
+        burns = true;
         //BurningParticle.GetComponent<ParticleSystem>().Play();
         for (int i = 0; i < 5; i++)
         {
@@ -535,6 +538,7 @@ public class GameManager : MonoBehaviour
             damagePlayer(fireDamage);
         }
         //BurningParticle.GetComponent<ParticleSystem>().Stop();
+        burns = false;
     }
     IEnumerator DeathFade()
     {
