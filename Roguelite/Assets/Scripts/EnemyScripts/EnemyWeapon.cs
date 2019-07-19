@@ -33,13 +33,14 @@ public class EnemyWeapon : MonoBehaviour
         // Damage playerand cause knockback if player has not been damaged recently.
         if (other.gameObject.tag == "Player")
         {
-            if (isBoomington == false)
+            if (isBoomington == false && controller.attacking == true)
             {
                 GameManager.instance.damagePlayer(damage);
                 if (isFlamington)
                 {
                     GameManager.instance.burnPlayer(controller.damage / 5);
                 }
+                controller.attacking = false;
             }
             else
             {

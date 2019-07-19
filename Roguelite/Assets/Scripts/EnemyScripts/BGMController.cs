@@ -41,7 +41,7 @@ public class BGMController : MonoBehaviour
 
     private bool isDashing = false;
     private bool attackTimerStarted = false; //Checks if attacktimer has been started to avoid spamming it.
-
+    public bool attacking;
     [Header("Speed Multipliers")]
     public float attackSpeedMultiplier; // A multiplier for speed so the Enemy can approach the player faster when attacking.
     public float chaseSpeedMultiplier; // -||-
@@ -276,6 +276,7 @@ public class BGMController : MonoBehaviour
     IEnumerator Attack() // How long enemy stays in attacking state, return to roaming afterwards and start cooldown to prevent immediatelly chasing again
     {
         attackTimerStarted = true;
+        attacking = true;
         animator.SetInteger("AnimState", 4);
         MoveAtPlayer(0);
         yield return new WaitForSeconds(attackingTime /2);

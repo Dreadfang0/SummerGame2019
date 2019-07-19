@@ -22,9 +22,11 @@ public class BossWeapon : MonoBehaviour
     {
 
         // Damage playerand cause knockback if player has not been damaged recently.
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && BGMcontroller.attacking == true)
         {
+
             GameManager.instance.damagePlayer(damage);
+            BGMcontroller.attacking = false;
             //playerRigidbody.AddExplosionForce(knockbackToPlayer, ExplosionPoint.transform.position, 10, 0, ForceMode.Impulse);
             //selfbody.AddExplosionForce(knockbackToSelf, ExplosionPoint.transform.position, 10, 0, ForceMode.Impulse);
         }
