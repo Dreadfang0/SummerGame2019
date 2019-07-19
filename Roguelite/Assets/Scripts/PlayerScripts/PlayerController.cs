@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     //private Vector3 moveDir;
     private float speed;
     public float currentSpeed = 5f;
+    public float backpedalMultiplier = 2f;
     //public float sprintMult = 2f;
     public float crouchMult = 0.5f;
     //public float gravity = 20f;
@@ -184,7 +185,16 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.S) && moveY != 1)
         {
             moveY = -1;
-            currentSpeed = speed / 2f;
+            animator.SetBool("isMoving", true);
+            if (isCrouching == true)
+            {
+                currentSpeed = speed * crouchMult / backpedalMultiplier;
+            }
+
+            else
+            {
+                currentSpeed = speed / backpedalMultiplier;
+            }
         }
 
         else
@@ -517,6 +527,7 @@ public class PlayerController : MonoBehaviour
             currentSpeed *= crouchMult;
             isCrouching = true;
             capsuleCollider.height = crouchHeight;
+            animator.SetFloat("CrouchingMulti", crouchMult);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl) && !isSprinting)
@@ -524,6 +535,7 @@ public class PlayerController : MonoBehaviour
             currentSpeed = speed;
             isCrouching = false;
             capsuleCollider.height = height;
+            animator.SetFloat("CrouchingMulti", 1);
         }
     }
 
@@ -681,7 +693,7 @@ public class PlayerController : MonoBehaviour
         footstepSource.Play();
         if(isCrouching == true)
         {
-            yield return new WaitForSeconds((footstepSource.clip.length * 1.8f));
+            yield return new WaitForSeconds((footstepSource.clip.length * (1/crouchMult) /*1.8f*/));
         }
         else
         {
