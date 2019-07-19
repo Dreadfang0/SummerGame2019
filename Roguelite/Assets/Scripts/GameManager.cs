@@ -250,10 +250,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            LevelUp();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    LevelUp();
+        //}
 
         float currentHealthPercentage = (float)playerController.health / (float)playerController.healthMax;
         healthBar.fillAmount = currentHealthPercentage;
