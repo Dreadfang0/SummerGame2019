@@ -114,7 +114,7 @@ public class EnemySpawner : MonoBehaviour {
     }
     public void SpawnNecroBoss()
     {
-        Instantiate(gRangedBoss, NecroBossSpawnPoint.position, gRangedBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
+        Instantiate(gRangedBoss, NecroBossSpawnPoint.position, gRangedBoss.transform.rotation).gameObject.GetComponent<NecroController>().Increase(difficulty);
     }
 
 
