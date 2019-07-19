@@ -103,7 +103,8 @@ public class BulletScript : MonoBehaviour
         else if (other.gameObject.tag == "WoodStuff")
         {
             other.GetComponent<WoodStuff>().BreakingWood();
-            Instantiate(woodHit, this.transform.position, transform.rotation);
+            GameObject wood = (GameObject)Instantiate(woodHit, this.transform.position, transform.rotation);
+            Destroy(wood, 1);
 
             if (perkSystem.ExplosiveProjectiles == true)
             {
@@ -111,12 +112,16 @@ public class BulletScript : MonoBehaviour
 
             }
 
-            gameObject.SetActive(false);
+            if (perkSystem.PiercingProjectiles == false)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         else if (other.gameObject.tag == "Ground")
         {
-            Instantiate(wallHit, this.transform.position, transform.rotation);
+            GameObject wall = (GameObject)Instantiate(wallHit, this.transform.position, transform.rotation);
+            Destroy(wall, 1);
 
             if (perkSystem.ExplosiveProjectiles == true)
             {
