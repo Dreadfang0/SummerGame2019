@@ -19,7 +19,7 @@ public class RoomSpawner : MonoBehaviour
     public EnemySpawner EnemySpawner;
     public ClutterSpawner ClutterSpawner;
     public GameObject[] skellys;
-    
+    public int level;
 
     //public NavMeshSurface[] surfaces;
 

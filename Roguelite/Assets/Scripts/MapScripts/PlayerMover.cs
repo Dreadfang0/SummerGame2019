@@ -33,6 +33,7 @@ public class PlayerMover : MonoBehaviour
         Invoke("LevelUpCheck", 1.0f);
         }
         nextLevel++;
+        master.GetComponent<RoomSpawner>().level++;
         
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
