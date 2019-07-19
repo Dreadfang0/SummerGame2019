@@ -145,6 +145,9 @@ public class GameManager : MonoBehaviour
 
     private Rigidbody selfbody;
     public float fadeTime;
+    [SerializeField]
+    TextMeshProUGUI LvlTxt;
+    int lvlReached;
 
     Vector3 CheckpointPos;
 
@@ -479,6 +482,8 @@ public class GameManager : MonoBehaviour
         //GameObject.Instantiate(BloodPartic, PlayerPosition.position, BloodPartic.transform.rotation);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player.GetComponent<PlayerController>().enabled = false;
+        lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
+        LvlTxt.text = "LVL:" + lvlReached;
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
             MenuSkillCount[i].text = "";
@@ -537,11 +542,12 @@ public class GameManager : MonoBehaviour
         float progress = 1.0f;
 
         Dead.GetComponent<Image>().color = Color.clear;
-
+        LvlTxt.color = Color.clear;
 
         while (progress > 0.0f)
         {
             Dead.GetComponent<Image>().color = Color.Lerp(Color.white, Color.clear, progress);
+            LvlTxt.color = Color.Lerp(Color.white, Color.clear, progress);
             progress -= rate * Time.deltaTime;
             yield return null;
         }
@@ -551,15 +557,18 @@ public class GameManager : MonoBehaviour
         restartGame();
 
         Dead.GetComponent<Image>().color = Color.white;
+        LvlTxt.color = Color.white;
         progress = 0.0f;
 
         while (progress < 1.0f)
         {
             Dead.GetComponent<Image>().color = Color.Lerp(Color.white, Color.clear, progress);
+            LvlTxt.color = Color.Lerp(Color.white, Color.clear, progress);
             progress += rate * Time.deltaTime;
             yield return null;
         }
         Dead.GetComponent<Image>().color = Color.clear;
+        LvlTxt.color = Color.clear;
 
     }
 
