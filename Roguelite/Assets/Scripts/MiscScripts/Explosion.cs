@@ -26,7 +26,6 @@ public class Explosion : MonoBehaviour
     {
         isBoomington = true;
         setDamage(dmg);
-        Debug.Log(isBoomington);
     }
 
     public void setDamage(int dmg)
@@ -39,7 +38,8 @@ public class Explosion : MonoBehaviour
         hasExploded = false;
         explode = true;
         Destroy(gameObject, 1f);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.1f);
+        hasExploded = true;
     }
 
     private void OnTriggerStay(Collider other)
@@ -49,7 +49,7 @@ public class Explosion : MonoBehaviour
             if (hasExploded == false)
             {
                 if(other.GetComponent<Rigidbody>() != null)
-                    other.GetComponent<Rigidbody>().AddExplosionForce(1, this.transform.position, 3, 0f, ForceMode.Impulse);
+                    other.GetComponent<Rigidbody>().AddExplosionForce(1.5f, this.transform.position, 3, 0f, ForceMode.Impulse);
             }
             if (other.tag == "Enemy" && explode == true)
             {

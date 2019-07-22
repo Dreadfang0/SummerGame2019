@@ -91,7 +91,6 @@ public class EnemyHealth : MonoBehaviour
         {
             yield return new WaitForSeconds(fireTickRate);
             damageEnemy(fireDamage);
-            Debug.Log(i);
         }
         burnStacks--;
         if (burnStacks == 0)

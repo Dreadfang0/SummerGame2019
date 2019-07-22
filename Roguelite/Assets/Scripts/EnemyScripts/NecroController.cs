@@ -142,7 +142,6 @@ public class NecroController : MonoBehaviour
             {
                 timer = Random.Range(timeToBottleMin, timeToBottleMax);
                 timerStarted = true;
-                Debug.Log("Timer started");
             }
             else
             {
@@ -150,7 +149,6 @@ public class NecroController : MonoBehaviour
             }
             if (timer <= 0 && SpecialActive == false && attackTimerStarted == false)
             {
-                Debug.Log("Timer done");
                 State = EnemyState.Special;
             }
             if (health <= 0)
@@ -179,7 +177,7 @@ public class NecroController : MonoBehaviour
     void AddTagRecursively(Transform trans, string tag)
     {
         trans.gameObject.tag = tag;
-        if (trans.GetChildCount() > 0)
+        if (trans.childCount > 0)
             foreach (Transform t in trans)
                 AddTagRecursively(t, tag);
     }
