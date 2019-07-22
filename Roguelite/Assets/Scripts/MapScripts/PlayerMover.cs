@@ -54,7 +54,6 @@ public class PlayerMover : MonoBehaviour
             if (nextLevel == SkellyBoss)
             {
                 SkellyRoom.SetActive(true);
-                master.GetComponent<RoomSpawner>().KillYourChildren();
                 player.transform.position = SkellyBossLevel.transform.position;
                 SkellyBoss += 20;
                 EnemySpawner.GetComponent<EnemySpawner>().SpawnSkellyBoss();
@@ -62,7 +61,6 @@ public class PlayerMover : MonoBehaviour
             else if (nextLevel == NecroBoss)
             {
                 NecroRoom.SetActive(true);
-                master.GetComponent<RoomSpawner>().KillYourChildren();
                 player.transform.position = NecroBossLevel.transform.position;
                 NecroBoss += 20;
                 EnemySpawner.GetComponent<EnemySpawner>().SpawnNecroBoss();
