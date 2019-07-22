@@ -183,11 +183,17 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("FirstRun", 0);
 
             //PlayerPrefs.SetFloat("SoundVolume", 0);
-            //PlayerPrefs.SetFloat("MusicVolume", 0);
+            ///PlayerPrefs.SetFloat("MusicVolume", 0);
 
             //PlayerPrefs.SetFloat("Sensitivity",1);
             //mouseLook.sensitivity = PlayerPrefs.GetFloat("Sensitivity");
             //mouseSensitivity.value = PlayerPrefs.GetFloat("MouseSlider");
+            PlayerPrefs.SetFloat("MasterVol", 0.5f);
+            PlayerPrefs.SetFloat("MusicVol", 0.5f);
+            PlayerPrefs.SetFloat("SFXVol", 0.5f);
+            masterSlider.value = PlayerPrefs.GetFloat("MasterVol");
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
+            sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
             SetAudio();
             PlayerPrefs.Save();
         }
@@ -287,7 +293,7 @@ public class GameManager : MonoBehaviour
         
         //timer += Time.deltaTime; // Used by regen.
 
-        if (Input.GetKeyDown(KeyCode.P)) // Used for pausing the game
+        if (Input.GetKeyDown(KeyCode.Escape)) // Used for pausing the game
         {
             if (pausedGame == false)
             {
