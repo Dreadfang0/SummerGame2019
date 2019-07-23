@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField]
     //private AudioSource audioSoundSource;
     public AudioSource playerDamageSource;
-    //public AudioSource levelUpSource;
+    public AudioSource levelUpSource;
     
 
     // Fish Audio files
@@ -609,6 +609,11 @@ public class GameManager : MonoBehaviour
         masterMixer.SetFloat("MasterVol", Mathf.Log10(masterSlider.value) * 20);
         masterMixer.SetFloat("MusicVol", Mathf.Log10(musicSlider.value) * 20);
         masterMixer.SetFloat("SFXVol", Mathf.Log10(sfxSlider.value) * 20);
+    }
+
+    public void LevelUpSound()
+    {
+        levelUpSource.Play();
     }
 
     public void LevelUp()
