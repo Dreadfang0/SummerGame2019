@@ -112,9 +112,12 @@ public class BGMController : MonoBehaviour
 
     [SerializeField]
     GameObject DeathParticle;
+    [SerializeField]
+    int id;
 
     void Start()
     {
+        
         perkSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<PerkSystem>();
         audioSource = GetComponent<AudioSource>();
         selfbody = GetComponent<Rigidbody>();
@@ -143,7 +146,7 @@ public class BGMController : MonoBehaviour
         }*/
         if (isDead == false)
         {
-            GameManager.instance.BossHealthUpdater(health);
+            GameManager.instance.BossHealthUpdater(health,id);
             if (State == EnemyState.Chasing) // --CHASING--------------------------------------------------
             {
                 animator.SetInteger("AnimState", 1);

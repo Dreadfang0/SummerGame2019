@@ -106,6 +106,9 @@ public class GameManager : MonoBehaviour
     Image BossHealthBar;
     float BossMaxHp;
     float BossHp;
+    float BossHp0;
+    float BossHp1;
+    float BossHp2;
     bool BossActive;
 
     public Slider masterSlider;
@@ -247,6 +250,7 @@ public class GameManager : MonoBehaviour
         if (BossActive == true) //BossHealthBar Updater
         {
             BossHealthHolder.SetActive(true);
+            BossHp = BossHp0 + BossHp1 + BossHp2;
             float BossPercentage = BossHp / BossMaxHp;
             BossHealthBar.fillAmount = BossPercentage;
             //Debug.Log("% " + BossPercentage);
@@ -522,11 +526,22 @@ public class GameManager : MonoBehaviour
     public void BossHealthBarSetup(float MaxHp) // |----BOSS HEALTH----|
     {
         BossActive = true;
-        BossMaxHp = MaxHp;
+        BossMaxHp = MaxHp * 3;
     }
-    public void BossHealthUpdater(float curHp) // |----BOSS CURRENT HEALTH UPDATER----|
+    public void BossHealthUpdater(float curHp,int id) // |----BOSS CURRENT HEALTH UPDATER----|
     {
-        BossHp = curHp;
+        if (id == 0)
+        {
+            BossHp0 = curHp;
+        }
+        if (id == 1)
+        {
+            BossHp1 = curHp;
+        }
+        if (id == 2)
+        {
+            BossHp2 = curHp;
+        }
     }
     IEnumerator DamageCooldown() // |-----DAMAGE ON COOLDOWN-----|
     {

@@ -116,7 +116,7 @@ public class NecroController : MonoBehaviour
         }*/
         if (isDead == false)
         {
-            GameManager.instance.BossHealthUpdater(health);
+            GameManager.instance.BossHealthUpdater(health,0);
             transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
             if (State == EnemyState.Special) // --FLEEING--------------------------------------------------------
             {
