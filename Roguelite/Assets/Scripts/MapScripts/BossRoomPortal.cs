@@ -26,7 +26,7 @@ public class BossRoomPortal : MonoBehaviour
             master.GetComponent<RoomSpawner>().MakeMoreChildren();
             print("Spawned things");
             master.GetComponent<RoomSpawner>().Spawn();
-
+            GameObject.Find("StartStopper").GetComponent<Collider>().isTrigger = true;
             master.GetComponent<PortalEnabler>().portalEnabled = false;
             Cursor.lockState = CursorLockMode.None;
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
