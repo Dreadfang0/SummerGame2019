@@ -130,5 +130,28 @@ public class BulletScript : MonoBehaviour
 
             gameObject.SetActive(false);
         }
+        else if (other.gameObject.tag == "TrapBarrel")
+        {
+            other.GetComponentInParent<EnemyHealth>().damageEnemy(damage);
+
+            if (perkSystem.PiercingProjectiles == false)
+            {
+                gameObject.SetActive(false);
+            }
+
+            if (perkSystem.ExplosiveProjectiles == true)
+            {
+                GameObject Boom = (GameObject)Instantiate(explosive, this.transform.position, transform.rotation);
+            }
+
+            if (perkSystem.FireProjectiles == true)
+            {
+                other.GetComponentInParent<EnemyHealth>().burnEnemy(playerController.currentDamage / 5);
+            }
+            if (perkSystem.FrostProjectiles == true)
+            {
+                other.GetComponentInParent<EnemyHealth>().slowed(playerController.slowMultiplier);
+            }
+        }
     }
 }
