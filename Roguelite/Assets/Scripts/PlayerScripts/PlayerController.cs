@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public int currentDamage;
     public float attackFrequency;
+    [HideInInspector]
+    public float baseAttackFrequency;
     private float attackTimer;
     public int ammo;
     public int ammoMax = 10;
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour
         health = healthMax;
         //currentDamage = baseDamage;
         armorSpill = 1 - armorAbsorption;
+        baseAttackFrequency = attackFrequency;
     }
 
     private void Start()

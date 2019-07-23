@@ -27,14 +27,14 @@ public class GameManager : MonoBehaviour
     public Transform PlayerPosition;
     public GameObject Player;
     public bool pausedGame;
-    [HideInInspector]
-    public bool damagedPlayer = false;
-    public float volume; // Sound volume that we can set and get from playerprefs
-    public float damageCooldown; // How often is the player allowed to get damaged
-    bool recentlyDamaged;
+    //[HideInInspector]
+    //public bool damagedPlayer = false;
+    //public float volume; // Sound volume that we can set and get from playerprefs
+    //public float damageCooldown; // How often is the player allowed to get damaged
+    //bool recentlyDamaged;
     public bool isDead;
-    [SerializeField]
-    GameObject BloodPartic;
+    //[SerializeField]
+    //GameObject BloodPartic;
     // UI stuff
     [SerializeField]
     GameObject Dead;
@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
     GameObject CreditsMenu;
     [SerializeField]
     GameObject PauseMenu;
+    [SerializeField]
+    GameObject StatsMenu;
     [SerializeField]
     GameObject SkillsMenu;
     [SerializeField]
@@ -97,8 +99,23 @@ public class GameManager : MonoBehaviour
     public GameObject reload;
     [SerializeField]
     private TextMeshProUGUI reloadTime;
-    [HideInInspector]
-    public float t;
+    //[HideInInspector]
+    //public float t;
+
+    [System.Serializable]
+    public class StatsMenuTexts
+    {
+        public TextMeshProUGUI healthText;
+        public TextMeshProUGUI armorText;
+        public TextMeshProUGUI damageText;
+        public TextMeshProUGUI critChanceText;
+        public TextMeshProUGUI critDamageText;
+        public TextMeshProUGUI attackSpeedText;
+        public TextMeshProUGUI ammoText;
+        public TextMeshProUGUI reloadSpeedText;
+    }
+
+    public StatsMenuTexts statsMenuTexts;
 
     [SerializeField]
     GameObject BossHealthHolder;
@@ -333,20 +350,21 @@ public class GameManager : MonoBehaviour
             isDead = true;
             //restartGame();
         }
-        if (recentlyDamaged == false) // If player is damaged and has not taken damage in a moment they regenerate.
-        {
-            /*if (timer > 0.2f && playerHealth < 100)
-            {
-                //playerHealth += 1;
-                colorFade += 1f;
-                timer = 0;
-            }
-            else if (timer > 0.2f && colorFade < 100)
-            {
-                colorFade += 1f;
-                timer = 0;
-            }*/
-        }
+
+        //if (recentlyDamaged == false) // If player is damaged and has not taken damage in a moment they regenerate.
+        //{
+        //    if (timer > 0.2f && playerHealth < 100)
+        //    {
+        //        //playerHealth += 1;
+        //        colorFade += 1f;
+        //        timer = 0;
+        //    }
+        //    else if (timer > 0.2f && colorFade < 100)
+        //    {
+        //        colorFade += 1f;
+        //        timer = 0;
+        //    }
+        //}
 
         //damaged.GetComponent<Image>().color = Color.Lerp(dmgColor, noColor,colorFade / 100);
         //ammoCount.text = collectiblesCollected.ToString();
@@ -438,10 +456,12 @@ public class GameManager : MonoBehaviour
     public void pauseMenu() // |-----PAUSE GAME-----|
     {
         PauseMenu.SetActive(true);
+        StatsMenu.SetActive(true);
         Time.timeScale = 0;
         pausedGame = true;
         Cursor.visible = true;
         paused.TransitionTo(0);
+        StatsMenuText();
         // Add menu stuff here
 
     }
@@ -449,6 +469,7 @@ public class GameManager : MonoBehaviour
     {
         // Unpauses game
         PauseMenu.SetActive(false);
+        StatsMenu.SetActive(false);
         closeSettingsMenu();
         closeSkillsMenu();
         Time.timeScale = 1;
@@ -557,7 +578,7 @@ public class GameManager : MonoBehaviour
             BossHp2 = curHp;
         }
     }
-    IEnumerator DamageCooldown() // |-----DAMAGE ON COOLDOWN-----|
+    /*IEnumerator DamageCooldown() // |-----DAMAGE ON COOLDOWN-----|
     {
         damagedPlayer = true;
         recentlyDamaged = true;
@@ -565,7 +586,7 @@ public class GameManager : MonoBehaviour
         //audioSource.Stop();
         recentlyDamaged = false;
         damagedPlayer = false;
-    }
+    }*/
     public void burnPlayer(int burn)
     {
         if (burns == false)
@@ -648,6 +669,18 @@ public class GameManager : MonoBehaviour
     public void LevelUpSound()
     {
         levelUpSource.Play();
+    }
+
+    public void StatsMenuText()
+    {
+        statsMenuTexts.healthText.text = "Health: " + playerController.health + "/" + playerController.healthMax;
+        statsMenuTexts.armorText.text = "Armor: " + playerController.armor + "/" + playerController.armorMax;
+        statsMenuTexts.damageText.text = "Damage: " + playerController.baseDamage;
+        statsMenuTexts.critChanceText.text = "Crit hit chance: " + playerController.critChance + "%";
+        statsMenuTexts.critDamageText.text = "Crit damage multi: x" + playerController.critMultiplier;
+        statsMenuTexts.attackSpeedText.text = "Attacks per second: " + 1 / playerController.attackFrequency + "s";
+        statsMenuTexts.ammoText.text = "Ammo: " + playerController.ammo + "/" + playerController.ammoMax;
+        statsMenuTexts.reloadSpeedText.text = "Reload speed: " + Mathf.Round(playerController.reloadSpeed * 100)/100 + "s";
     }
 
     public void LevelUp()

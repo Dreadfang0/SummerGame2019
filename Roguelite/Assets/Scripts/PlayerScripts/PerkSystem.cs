@@ -23,7 +23,8 @@ public class PerkSystem : MonoBehaviour
     [HideInInspector]
     public int damageLevel;
     [SerializeField]
-    private float attackFrequencyUpgrade;
+    private float attackSpeedUpgrade = 0.1f;
+    private float attackSpeed = 1;
     [HideInInspector]
     public int attackFrequencyLevel;
     [SerializeField]
@@ -110,7 +111,7 @@ public class PerkSystem : MonoBehaviour
         fireProjectilesText = "Your projectiles now set enemies on fire, dealing damage over time equal to your damage";
         explosiveProjectilesText = "Your projectiles now deal " + (100 * playerController.explosiveMultiplier) + "% of your damage in small area around them";
         piercingProjectilesText = "Your projectiles now pierce enemies";
-        attackSpeedText = "Increases your attack speed by " + ((1 - attackFrequencyUpgrade) * 100) + "%";
+        attackSpeedText = "Increases your attack speed by " + (attackSpeedUpgrade * 100) + "%";
         if(GlassCannon == true)
         {
             damageText = "Increases your damage by " + damageUpgrade * 2;
@@ -170,7 +171,9 @@ public class PerkSystem : MonoBehaviour
     public void AttackSpeedPerk()
     {
         attackFrequencyLevel++;
-        playerController.attackFrequency *= attackFrequencyUpgrade;
+        attackSpeed += attackSpeedUpgrade;
+        playerController.attackFrequency = playerController.baseAttackFrequency;
+        playerController.attackFrequency /= attackSpeed;
         GameManager.instance.MenuSkillCount[4].text = attackFrequencyLevel.ToString();
     }
 
