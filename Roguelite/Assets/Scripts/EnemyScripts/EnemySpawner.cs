@@ -49,8 +49,8 @@ public class EnemySpawner : MonoBehaviour {
     public float difficulty = 1.1f;
     public float startLimit;
     public Transform SkellyBossSpawnPoint1;
-    public Transform SkellyBossSpawnPoint2;
-    public Transform SkellyBossSpawnPoint3;
+    //public Transform SkellyBossSpawnPoint2;
+    //public Transform SkellyBossSpawnPoint3;
     public Transform NecroBossSpawnPoint;
 
 
@@ -112,9 +112,18 @@ public class EnemySpawner : MonoBehaviour {
 
     public void SpawnSkellyBoss()
     {
-        Instantiate(gMeleeBoss, SkellyBossSpawnPoint1.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
-        Instantiate(gMeleeBoss, SkellyBossSpawnPoint2.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
-        Instantiate(gMeleeBoss, SkellyBossSpawnPoint3.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
+        Instantiate(gMeleeBoss, SkellyBossSpawnPoint1.position, gMeleeBoss.transform.rotation);
+        foreach (GameObject Enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (Enemy.GetComponent<BGMController>() != null)
+            {
+                //Enemy.GetComponent<EnemyRangedController>().enabled = true;
+                Enemy.GetComponent<BGMController>().Increase(difficulty);
+            }
+            
+        }
+        //Instantiate(gMeleeBoss, SkellyBossSpawnPoint2.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
+        //Instantiate(gMeleeBoss, SkellyBossSpawnPoint3.position, gMeleeBoss.transform.rotation).gameObject.GetComponent<BGMController>().Increase(difficulty);
     }
     public void SpawnNecroBoss()
     {

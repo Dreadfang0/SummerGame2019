@@ -31,13 +31,12 @@ public class StarRoomPortal : MonoBehaviour
             master.GetComponent<RoomSpawner>().MakeMoreChildren();
             print("Spawned things");
             master.GetComponent<RoomSpawner>().Spawn();
-            //master.GetComponent<PortalEnabler>().portalEnabled = false;
-            //master.GetComponent<PortalEnabler>().Disable();
+            master.GetComponent<PortalEnabler>().portalEnabled = false;
             Cursor.lockState = CursorLockMode.None;
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
             player.GetComponent<MouseLook>().lookAngles = new Vector2(0, 0);
             Cursor.lockState = CursorLockMode.Locked;
-            //ParentRoom.SetActive(false);
+            ParentRoom.SetActive(false);
         }
     }
    private void ReturnMouseControl()

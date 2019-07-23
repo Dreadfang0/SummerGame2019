@@ -261,6 +261,14 @@ public class GameManager : MonoBehaviour
                 BossHealthHolder.SetActive(false);
             }
         }
+        else
+        {
+            BossHealthHolder.SetActive(false);
+            BossHp0 = 0;
+            BossHp1 = 0;
+            BossHp2 = 0;
+            
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
@@ -500,6 +508,7 @@ public class GameManager : MonoBehaviour
         //GameObject.Instantiate(BloodPartic, PlayerPosition.position, BloodPartic.transform.rotation);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player.GetComponent<PlayerController>().enabled = false;
+        BossActive = false;
         StopAllCoroutines();
         lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
         LvlTxt.text = "You Reached LVL: " + lvlReached;

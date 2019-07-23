@@ -13,7 +13,7 @@ public class PortalEnabler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemies = GameObject.Find("Spawner").GetComponent<EnemySpawner>().EnemyAmount;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
 
@@ -34,7 +34,7 @@ public class PortalEnabler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemies = GameObject.Find("Spawner").GetComponent<EnemySpawner>().EnemyAmount;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
 
 
@@ -52,16 +52,5 @@ public class PortalEnabler : MonoBehaviour
             portalEnabled = true;
         }
 
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-            GetComponent<PortalEnabler>().portalEnabled = false;
-            }
-
-            public void Disable()
-    {
-        portalEnabled = false;
     }
 }
