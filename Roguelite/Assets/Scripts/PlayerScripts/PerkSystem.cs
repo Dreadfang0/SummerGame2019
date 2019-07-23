@@ -108,7 +108,7 @@ public class PerkSystem : MonoBehaviour
     {
         multiShotText = "Increases the number of projectiles you fire by 2";
         fireProjectilesText = "Your projectiles now set enemies on fire, dealing damage over time equal to your damage";
-        explosiveProjectilesText = "Your projectiles now explode on hit, dealing " + (100 * playerController.explosiveMultiplier) + "% of your damage in small area around them";
+        explosiveProjectilesText = "Your projectiles now deal " + (100 * playerController.explosiveMultiplier) + "% of your damage in small area around them";
         piercingProjectilesText = "Your projectiles now pierce enemies";
         attackSpeedText = "Increases your attack speed by " + ((1 - attackFrequencyUpgrade) * 100) + "%";
         if(GlassCannon == true)
@@ -126,8 +126,8 @@ public class PerkSystem : MonoBehaviour
         healthUpgradeText = "Increases your maximum and current health by " + healthUpgrade;
         healthRestoreText = "Restores your current health by " + healthRestore;
         lifeStealText = "Killing enemies restore your health by " + (lifeSteal * 100) + "%";
-        ammoReloadSpeedText = "Increases your ammo by " + ammoMaxUpgrade + " and lowers your reload speed by " + ((1 - reloadSpeedUpgrade) * 100) + "%";
-        criticalMasteryText = "Increases your critical hit chance by " + critChanceUpgrade + "% and your critical damage multiplier by " + critMultiUpgrade;
+        ammoReloadSpeedText = "Max ammo + " + ammoMaxUpgrade + " and reload speed - " + ((1 - reloadSpeedUpgrade) * 100) + "%";
+        criticalMasteryText = "Critical hit chance + " + critChanceUpgrade + "% and critical damage multiplier + " + critMultiUpgrade;
         glassCannonText = "Doubles your damage and halves your health";
         burstText = "Adds another projectile after every projectile you shoot";
         frostProjectilesText = "Your projectiles now slow enemies movement speed by " + (playerController.slowMultiplier * 100) + "%";

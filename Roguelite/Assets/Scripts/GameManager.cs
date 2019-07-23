@@ -148,6 +148,8 @@ public class GameManager : MonoBehaviour
     public float fadeTime;
     [SerializeField]
     TextMeshProUGUI LvlTxt;
+    [SerializeField]
+    TextMeshProUGUI BONEDTxt;
     int lvlReached;
     bool burns;
     Vector3 CheckpointPos;
@@ -256,10 +258,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.Alpha0))
-        //{
-        //    LevelUp();
-        //}
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            LevelUp();
+        }
 
         float currentHealthPercentage = (float)playerController.health / (float)playerController.healthMax;
         healthBar.fillAmount = currentHealthPercentage;
@@ -494,7 +496,7 @@ public class GameManager : MonoBehaviour
         //GameObject.Instantiate(BloodPartic, PlayerPosition.position, BloodPartic.transform.rotation);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player.GetComponent<PlayerController>().enabled = false;
-        StopCoroutine(burning(0));
+        StopAllCoroutines();
         lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
         LvlTxt.text = "You Reached LVL: " + lvlReached;
         for (int i = 0; i < MenuSkillCount.Length; i++)
@@ -564,6 +566,7 @@ public class GameManager : MonoBehaviour
         {
             Dead.GetComponent<Image>().color = Color.Lerp(Color.white, Color.clear, progress);
             LvlTxt.color = Color.Lerp(Color.white, Color.clear, progress);
+            BONEDTxt.color = Color.Lerp(Color.white, Color.clear, progress);
             progress -= rate * Time.deltaTime;
             yield return null;
         }
@@ -574,18 +577,20 @@ public class GameManager : MonoBehaviour
 
         Dead.GetComponent<Image>().color = Color.white;
         LvlTxt.color = Color.white;
+        BONEDTxt.color = Color.white;
         progress = 0.0f;
 
         while (progress < 1.0f)
         {
             Dead.GetComponent<Image>().color = Color.Lerp(Color.white, Color.clear, progress);
             LvlTxt.color = Color.Lerp(Color.white, Color.clear, progress);
+            BONEDTxt.color = Color.Lerp(Color.white, Color.clear, progress);
             progress += rate * Time.deltaTime;
             yield return null;
         }
         Dead.GetComponent<Image>().color = Color.clear;
         LvlTxt.color = Color.clear;
-
+        BONEDTxt.color = Color.clear;
     }
 
     public void MouseSensitivity()
