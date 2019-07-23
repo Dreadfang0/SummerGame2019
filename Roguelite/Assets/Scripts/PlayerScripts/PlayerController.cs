@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     //private Vector3 moveDir;
     private float speed;
     public float currentSpeed = 5f;
-    public float backpedalMultiplier = 2f;
+    public float backpedalMultiplier = 0.5f;
     //public float sprintMult = 2f;
     public float crouchMult = 0.5f;
     //public float gravity = 20f;
@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource footstepSource, portalSource;
     private bool isMoving;
+    private bool jumpedRecently;
 
     private void Awake()
     {
@@ -191,12 +192,29 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isMoving", true);
             if (isCrouching == true)
             {
-                currentSpeed = speed * crouchMult / backpedalMultiplier;
+                currentSpeed = speed * crouchMult * backpedalMultiplier;
+            }
+
+            else if(isGrounded == false)
+            {
+                currentSpeed = speed;
             }
 
             else
             {
-                currentSpeed = speed / backpedalMultiplier;
+                currentSpeed = speed * backpedalMultiplier;
+            }
+        }
+
+        else if(Input.GetKeyUp(KeyCode.S))
+        {
+            if(isCrouching == true)
+            {
+                currentSpeed = speed * crouchMult;
+            }
+            else
+            {
+                currentSpeed = speed;
             }
         }
 
@@ -204,7 +222,6 @@ public class PlayerController : MonoBehaviour
         {
             moveY = 0;
             animator.SetBool("isMoving", false);
-            currentSpeed = speed;
         }
 
         if (Input.GetKey(KeyCode.D) && moveX != -1)
@@ -285,10 +302,17 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if(isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+        if(isGrounded == true && Input.GetKey(KeyCode.Space) && jumpedRecently == false)
         {
+            jumpedRecently = true;
             rb.AddForce(jumpHeight, ForceMode.VelocityChange);
+            Invoke("JumpReset", .5f);
         }
+    }
+
+    void JumpReset()
+    {
+        jumpedRecently = false;
     }
 
     /*void Gravity()

@@ -97,11 +97,11 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnableExternalAlpha: 0
-    - _Exposure: 2
+    - _Exposure: 1.52
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _ImageType: 0
+    - _ImageType: 1
     - _Layout: 0
     - _Mapping: 1
     - _Metallic: 0
@@ -109,7 +109,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Rotation: 360
+    - _Rotation: 90
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -131,4 +131,4 @@ Material:
     - _GroundColor: {r: 0.369, g: 0.349, b: 0.341, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Tint: {r: 0.0029814949, g: 0.6320754, b: 0.07855594, a: 1}
+    - _Tint: {r: 0.0029814949, g: 1, b: 0, a: 1}

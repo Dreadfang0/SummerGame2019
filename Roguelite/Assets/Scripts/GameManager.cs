@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
         public TextMeshProUGUI attackSpeedText;
         public TextMeshProUGUI ammoText;
         public TextMeshProUGUI reloadSpeedText;
+        public TextMeshProUGUI levelText;
     }
 
     public StatsMenuTexts statsMenuTexts;
@@ -174,6 +175,9 @@ public class GameManager : MonoBehaviour
     bool burns;
     Vector3 CheckpointPos;
 
+    [SerializeField]
+    private RoomSpawner roomSpawner;
+
     void Awake()
     {
         Application.targetFrameRate = 60;
@@ -197,6 +201,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        for (int i = 0; i < MenuSkillCount.Length; i++)
+        {
+            MenuSkillCount[i].text = "0";
+        }
         //audioSource.clip = MainMenuMusic;
         //audioSource.Play();
         // Check if first run key exists, if it doesn't exist, create it or it is 1, initialize values. 0 = False, 1 = True.
@@ -227,6 +235,12 @@ public class GameManager : MonoBehaviour
             //musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
             //mouseLook.sensitivity = PlayerPrefs.GetFloat("Sensitivity");
             //mouseSensitivity.value = PlayerPrefs.GetFloat("MouseSlider");
+            PlayerPrefs.SetFloat("MasterVol", 0.5f);
+            PlayerPrefs.SetFloat("MusicVol", 0.5f);
+            PlayerPrefs.SetFloat("SFXVol", 0.5f);
+            masterSlider.value = PlayerPrefs.GetFloat("MasterVol");
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
+            sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
             SetAudio();
 
         }
@@ -262,6 +276,11 @@ public class GameManager : MonoBehaviour
         if (playerController == null)
         {
             playerController = Player.GetComponent<PlayerController>();
+        }
+
+        if (roomSpawner == null)
+        {
+            roomSpawner = GameObject.FindGameObjectWithTag("DoorThing").GetComponent<RoomSpawner>();
         }
 
         if (BossActive == true) //BossHealthBar Updater
@@ -535,7 +554,7 @@ public class GameManager : MonoBehaviour
         LvlTxt.text = "You Reached LVL: " + lvlReached;
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
-            MenuSkillCount[i].text = "";
+            MenuSkillCount[i].text = "0";
         }
         StartCoroutine(DeathFade());
     }
@@ -549,7 +568,7 @@ public class GameManager : MonoBehaviour
                         // Player.GetComponent<PlayerController>().dashUsed = false; // Prevents bug that causes the player being unable to dash
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
-            MenuSkillCount[i].text = "";
+            MenuSkillCount[i].text = "0";
         }
     }
 
@@ -681,6 +700,7 @@ public class GameManager : MonoBehaviour
         statsMenuTexts.attackSpeedText.text = "Attacks per second: " + 1 / playerController.attackFrequency + "s";
         statsMenuTexts.ammoText.text = "Ammo: " + playerController.ammo + "/" + playerController.ammoMax;
         statsMenuTexts.reloadSpeedText.text = "Reload speed: " + Mathf.Round(playerController.reloadSpeed * 100)/100 + "s";
+        statsMenuTexts.levelText.text = "Current level: " + roomSpawner.level;
     }
 
     public void LevelUp()
