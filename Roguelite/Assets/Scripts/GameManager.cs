@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField]
     //private AudioSource audioSoundSource;
     public AudioSource playerDamageSource;
-    public AudioSource levelUpSource;
+    //public AudioSource levelUpSource;
     
 
     // Fish Audio files
@@ -627,7 +627,7 @@ public class GameManager : MonoBehaviour
             playerController.healthMax += playerController.healthLvlUp;
             playerController.health += playerController.healthLvlUp;
         }
-        levelUpSource.Play();
+        //levelUpSource.Play();
         //paused.TransitionTo(0);
         perkSystem.UpdateTexts();
         LevelUpMenu.SetActive(true);
