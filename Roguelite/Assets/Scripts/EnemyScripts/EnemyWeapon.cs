@@ -42,7 +42,7 @@ public class EnemyWeapon : MonoBehaviour
                 }
                 controller.attacking = false;
             }
-            else
+            if (isBoomington == true)
             {
                 controller.health = 0;
             }
