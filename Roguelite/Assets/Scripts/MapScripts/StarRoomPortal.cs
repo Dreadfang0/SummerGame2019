@@ -26,22 +26,18 @@ public class StarRoomPortal : MonoBehaviour
         if (other.tag == "Player")
         {
             playerController.portalSource.Play();
-            /* if (nextLevel == 10)
-             {
-                 player.transform.position = BossLevel.transform.position;
-
-             } */
             player.transform.position = StartPoint.transform.position;
             master.GetComponent<RoomSpawner>().KillYourChildren();
             master.GetComponent<RoomSpawner>().MakeMoreChildren();
             print("Spawned things");
             master.GetComponent<RoomSpawner>().Spawn();
+            //master.GetComponent<PortalEnabler>().portalEnabled = false;
+            //master.GetComponent<PortalEnabler>().Disable();
             Cursor.lockState = CursorLockMode.None;
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
             player.GetComponent<MouseLook>().lookAngles = new Vector2(0, 0);
             Cursor.lockState = CursorLockMode.Locked;
-            ParentRoom.SetActive(false);
-
+            //ParentRoom.SetActive(false);
         }
     }
    private void ReturnMouseControl()

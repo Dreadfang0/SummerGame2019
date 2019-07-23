@@ -153,5 +153,13 @@ public class BulletScript : MonoBehaviour
                 other.GetComponentInParent<EnemyHealth>().slowed(playerController.slowMultiplier);
             }
         }
+        else if (other.gameObject.tag == "DoorThing")
+        {
+            if (perkSystem.ExplosiveProjectiles == true)
+            {
+                GameObject Boom = (GameObject)Instantiate(explosive, this.transform.position, transform.rotation);
+            }
+            gameObject.SetActive(false);
+        }
     }
 }

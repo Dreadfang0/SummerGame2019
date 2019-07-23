@@ -75,6 +75,7 @@ public class PlayerMover : MonoBehaviour
                 print("Spawned things");
                 master.GetComponent<RoomSpawner>().Spawn();
             }
+            master.GetComponent<PortalEnabler>().portalEnabled = false;
             Cursor.lockState = CursorLockMode.None;
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
             player.GetComponent<MouseLook>().lookAngles = new Vector2(0, 0);
