@@ -532,10 +532,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BossHealthBarSetup(float MaxHp) // |----BOSS HEALTH----|
+    public void BossHealthBarSetup(float MaxHp, bool isNecro) // |----BOSS HEALTH----|
     {
         BossActive = true;
-        BossMaxHp = MaxHp * 3;
+        if (isNecro == false)
+        {
+            BossMaxHp = MaxHp * 3;
+        }
+        else
+            BossMaxHp = BossHp0;
     }
     public void BossHealthUpdater(float curHp,int id) // |----BOSS CURRENT HEALTH UPDATER----|
     {

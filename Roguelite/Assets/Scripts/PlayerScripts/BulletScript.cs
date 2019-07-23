@@ -78,6 +78,8 @@ public class BulletScript : MonoBehaviour
         //Debug.Log(damage);
         if (other.gameObject.tag == "Enemy")
         {
+            GameObject wall = (GameObject)Instantiate(wallHit, this.transform.position, transform.rotation);
+            Destroy(wall, 1);
             other.GetComponentInParent<EnemyHealth>().damageEnemy(damage);
 
             if(perkSystem.PiercingProjectiles == false)

@@ -104,7 +104,7 @@ public class NecroController : MonoBehaviour
         }
         else
             Debug.Log("Can't find player gameobject, is player tagged or placed in scene?");
-        GameManager.instance.BossHealthBarSetup(health);
+        GameManager.instance.BossHealthBarSetup(health, true);
     }
 
     void Update()

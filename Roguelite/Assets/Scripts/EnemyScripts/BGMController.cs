@@ -133,7 +133,7 @@ public class BGMController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         Speed = agent.speed; // Gets the speed value of the navmesh agent
         baseAcceleration = agent.acceleration;
-        GameManager.instance.BossHealthBarSetup(health);
+        GameManager.instance.BossHealthBarSetup(health, false);
         StartCoroutine(ChargeCooldownTimer());
     }
 
