@@ -12,8 +12,8 @@ public class PlayerMover : MonoBehaviour
     public GameObject master;
     public EnemySpawner EnemySpawner;
     public int nextLevel;
-    public int SkellyBoss = 10;
-    public int NecroBoss = 20;
+    public int SkellyBoss = 5;
+    public int NecroBoss = 10;
     public GameObject SkellyRoom, NecroRoom;
     // Start is called before the first frame update
 
@@ -55,14 +55,14 @@ public class PlayerMover : MonoBehaviour
             {
                 SkellyRoom.SetActive(true);
                 player.transform.position = SkellyBossLevel.transform.position;
-                SkellyBoss += 20;
+                SkellyBoss += 10;
                 EnemySpawner.GetComponent<EnemySpawner>().SpawnSkellyBoss();
             }
             else if (nextLevel == NecroBoss)
             {
                 NecroRoom.SetActive(true);
                 player.transform.position = NecroBossLevel.transform.position;
-                NecroBoss += 20;
+                NecroBoss += 10;
                 EnemySpawner.GetComponent<EnemySpawner>().SpawnNecroBoss();
             }
 
@@ -75,6 +75,7 @@ public class PlayerMover : MonoBehaviour
                 print("Spawned things");
                 master.GetComponent<RoomSpawner>().Spawn();
             }
+            GameObject.Find("StartStopper").GetComponent<Collider>().isTrigger = true;
             master.GetComponent<PortalEnabler>().portalEnabled = false;
             Cursor.lockState = CursorLockMode.None;
             player.GetComponent<MouseLook>().currentMouseLook = new Vector2(0, 0);
