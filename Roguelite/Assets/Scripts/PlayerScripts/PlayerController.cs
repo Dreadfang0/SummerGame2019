@@ -206,9 +206,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if(Input.GetKeyUp(KeyCode.S))
+        else
         {
-            if(isCrouching == true)
+            moveY = 0;
+            animator.SetBool("isMoving", false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            if (isCrouching == true)
             {
                 currentSpeed = speed * crouchMult;
             }
@@ -216,12 +222,6 @@ public class PlayerController : MonoBehaviour
             {
                 currentSpeed = speed;
             }
-        }
-
-        else
-        {
-            moveY = 0;
-            animator.SetBool("isMoving", false);
         }
 
         if (Input.GetKey(KeyCode.D) && moveX != -1)
