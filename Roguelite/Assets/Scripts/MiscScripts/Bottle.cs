@@ -40,4 +40,8 @@ public class Bottle : MonoBehaviour
             }
         }
     }
+    public void SetDamage(int dmg)
+    {
+        damage = dmg / 5;
+    }
 }

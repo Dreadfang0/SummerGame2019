@@ -188,7 +188,9 @@ public class NecroController : MonoBehaviour
         yield return new WaitForSeconds(1.1f);
         for (int i = 0; i < BottleTossPoints.Length; i++)
         {
-            GameObject.Instantiate(WineBottle, BottleTossPoints[i].transform.position, transform.rotation).GetComponent<Rigidbody>().AddExplosionForce(Random.Range(bottleLaunchMin,bottleLaunchMax), ExplosionPoint.transform.position, 10, 0.4f, ForceMode.Impulse);
+            GameObject Botul = (GameObject)Instantiate(WineBottle, BottleTossPoints[i].transform.position, transform.rotation);
+            Botul.GetComponent<Bottle>().SetDamage(damage);
+            Botul.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(bottleLaunchMin, bottleLaunchMax), ExplosionPoint.transform.position, 10, 0.4f, ForceMode.Impulse);
             State = EnemyState.Idle;
         }
         audioSource.PlayOneShot(specialAudio);
