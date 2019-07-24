@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fletching
+  m_Name: ArrowShaft
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: f0c8a205043180548b3df284c1b470de, type: 3}
+        m_Texture: {fileID: 2800000, guid: fc98aa0700154f948b01fe3ed8b798a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
-        m_Texture: {fileID: 2800000, guid: cbf77eb1550014549b8f54281b02d5f3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 46b6cd38ed0074743933a5879bd294cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
@@ -40,19 +40,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2249f9cae819aff46869a08017ed73fb, type: 3}
+        m_Texture: {fileID: 2800000, guid: a155d116e58a2eb41a4ae2f34ea30d03, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 1bfeb35e5bab0f74499d1df809e94c93, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3e5153408ef979442b364d7bd2a17bbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: b9146c3a59d13464f8ce55afd203a07f, type: 3}
+        m_Texture: {fileID: 2800000, guid: ca7988508d9c0b846a89d955890be3d1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 22fef2f945d4f2b40973652288de7b62, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9254f4e5ba736754494670542b4df620, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:

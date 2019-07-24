@@ -146,6 +146,10 @@ public class BGMController : MonoBehaviour
         }*/
         if (isDead == false)
         {
+            if (health < 0)
+            {
+                health = 0;
+            }
             GameManager.instance.BossHealthUpdater(health,id);
             if (State == EnemyState.Chasing) // --CHASING--------------------------------------------------
             {
