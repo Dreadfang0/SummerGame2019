@@ -180,6 +180,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoomSpawner roomSpawner;
 
+    //blood things
+    public Image DamageImage;
+    public Color DamageColor;
+    public bool blooded = false;
+    public float damageFlashSpeed = 3f;
+
     void Awake()
     {
         Application.targetFrameRate = 60;
@@ -252,6 +258,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Damaged();
         if (perkSystem == null)
         {
             perkSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<PerkSystem>();
@@ -422,6 +429,8 @@ public class GameManager : MonoBehaviour
             }
 
         }
+        blooded = true;
+        Damaged();
     }
     public void healPlayer(int healAmount) // |-----HEAL PLAYER-----|
     {
@@ -1325,5 +1334,17 @@ public class GameManager : MonoBehaviour
                     break;
                 }
         }
+    }
+    public void Damaged()
+    {
+        if (blooded)
+        {
+            DamageImage.color = DamageColor;
+        }
+        else
+        {
+            DamageImage.color = Color.Lerp(DamageImage.color, Color.clear, damageFlashSpeed * Time.deltaTime);
+        }
+        blooded = false;
     }
 }
