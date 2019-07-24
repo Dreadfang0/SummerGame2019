@@ -70,10 +70,15 @@ public class PlayerMover : MonoBehaviour
             {
                 player.transform.position = StartPoint.transform.position;
                 player.transform.rotation = StartPoint.transform.rotation;
+
                 master.GetComponent<RoomSpawner>().KillYourChildren();
                 master.GetComponent<RoomSpawner>().MakeMoreChildren();
                 print("Spawned things");
                 master.GetComponent<RoomSpawner>().Spawn();
+            }
+            foreach (GameObject Bolt in GameObject.FindGameObjectsWithTag("Bullet"))
+            {
+                Bolt.gameObject.SetActive(false);
             }
             GameObject.Find("StartStopper").GetComponent<Collider>().isTrigger = true;
             master.GetComponent<PortalEnabler>().portalEnabled = false;
