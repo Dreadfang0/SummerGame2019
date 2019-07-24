@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
         public TextMeshProUGUI ammoText;
         public TextMeshProUGUI reloadSpeedText;
         public TextMeshProUGUI levelText;
+        public TextMeshProUGUI scoreText;
     }
 
     public StatsMenuTexts statsMenuTexts;
@@ -172,6 +173,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI BONEDTxt;
     int lvlReached;
+    public int highScore;
     bool burns;
     Vector3 CheckpointPos;
 
@@ -197,6 +199,7 @@ public class GameManager : MonoBehaviour
         masterSlider.value = PlayerPrefs.GetFloat("MasterVol");
         musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
         sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
+        highScore = PlayerPrefs.GetInt("highScore");
     }
 
     void Start()
@@ -480,6 +483,7 @@ public class GameManager : MonoBehaviour
         pausedGame = true;
         Cursor.visible = true;
         paused.TransitionTo(0);
+        ScoreCheck();
         StatsMenuText();
         // Add menu stuff here
 
@@ -550,13 +554,22 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<PlayerController>().enabled = false;
         BossActive = false;
         StopAllCoroutines();
-        lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
-        LvlTxt.text = "You Reached LVL: " + lvlReached;
+        ScoreCheck();
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
             MenuSkillCount[i].text = "0";
         }
         StartCoroutine(DeathFade());
+    }
+    public void ScoreCheck()
+    {
+        lvlReached = GameObject.Find("RoomMaster").GetComponentInChildren<RoomSpawner>().level;
+        LvlTxt.text = "You Reached LVL: " + lvlReached;
+        if (lvlReached > highScore)
+        {
+            highScore = lvlReached;
+            PlayerPrefs.SetInt("highScore", highScore);
+        }
     }
     public void restartGame() // |-----RESTART GAME-----|
     {
@@ -701,6 +714,7 @@ public class GameManager : MonoBehaviour
         statsMenuTexts.ammoText.text = "Ammo: " + playerController.ammo + "/" + playerController.ammoMax;
         statsMenuTexts.reloadSpeedText.text = "Reload speed: " + Mathf.Round(playerController.reloadSpeed * 100)/100 + "s";
         statsMenuTexts.levelText.text = "Current level: " + roomSpawner.level;
+        statsMenuTexts.scoreText.text = "Highest Level Reached: " + highScore;
     }
 
     public void LevelUp()
