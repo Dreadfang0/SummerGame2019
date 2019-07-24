@@ -230,6 +230,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("MasterVol", 0.5f);
             PlayerPrefs.SetFloat("MusicVol", 0.5f);
             PlayerPrefs.SetFloat("SFXVol", 0.5f);
+            PlayerPrefs.SetFloat("Sensitivity", 1f);
             masterSlider.value = PlayerPrefs.GetFloat("MasterVol");
             musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
             sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
@@ -244,13 +245,15 @@ public class GameManager : MonoBehaviour
             //musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
             //mouseLook.sensitivity = PlayerPrefs.GetFloat("Sensitivity");
             //mouseSensitivity.value = PlayerPrefs.GetFloat("MouseSlider");
-            PlayerPrefs.SetFloat("MasterVol", 0.5f);
-            PlayerPrefs.SetFloat("MusicVol", 0.5f);
-            PlayerPrefs.SetFloat("SFXVol", 0.5f);
             masterSlider.value = PlayerPrefs.GetFloat("MasterVol");
             musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
             sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
+            PlayerPrefs.SetFloat("MasterVol", masterSlider.value);
+            PlayerPrefs.SetFloat("MusicVol", musicSlider.value);
+            PlayerPrefs.SetFloat("SFXVol", sfxSlider.value);
+            PlayerPrefs.SetFloat("Sensitivity", mouseLook.sensitivity);
             SetAudio();
+            PlayerPrefs.Save();
 
         }
     }
