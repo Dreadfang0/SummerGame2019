@@ -1340,6 +1340,7 @@ public class GameManager : MonoBehaviour
                 }
         }
     }
+
     public void Damaged()
     {
         if (blooded)

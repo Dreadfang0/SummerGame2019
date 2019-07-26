@@ -103,7 +103,10 @@ public class NecroController : MonoBehaviour
             playerRigidbody = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
         }
         else
+        {
             Debug.Log("Can't find player gameobject, is player tagged or placed in scene?");
+        }
+
         GameManager.instance.BossHealthBarSetup(health, true);
     }
 
