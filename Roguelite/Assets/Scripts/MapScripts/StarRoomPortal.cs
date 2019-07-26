@@ -26,6 +26,7 @@ public class StarRoomPortal : MonoBehaviour
         if (other.tag == "Player")
         {
             playerController.portalSource.Play();
+            GameManager.instance.ChangeMusic(2);
             player.transform.position = StartPoint.transform.position;
             master.GetComponent<RoomSpawner>().KillYourChildren();
             master.GetComponent<RoomSpawner>().MakeMoreChildren();

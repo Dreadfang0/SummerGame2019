@@ -151,8 +151,8 @@ public class GameManager : MonoBehaviour
     //float timer; // Used for regen.
     //[SerializeField]
     //private AudioSource audioSource;
-    //[SerializeField]
-    //private AudioSource audioSoundSource;
+    [SerializeField]
+    AudioSource musicSource;
     public AudioSource playerDamageSource;
     public AudioSource levelUpSource;
     
@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        ChangeMusic(1);
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
             MenuSkillCount[i].text = "0";
@@ -319,10 +320,10 @@ public class GameManager : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            LevelUp();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    LevelUp();
+        //}
 
         float currentHealthPercentage = (float)playerController.health / (float)playerController.healthMax;
         healthBar.fillAmount = currentHealthPercentage;
@@ -453,12 +454,6 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    public void startGame() // |-----START GAME-----|
-    {
-        MainMenu.SetActive(false);
-        SceneManager.LoadScene(2);
-        //audioSource.clip = Area1Music;
-    }
     public void openSettingsMenu() // |-----OPEN SETTINGS-----|
     {
         SettingsMenu.SetActive(true);
@@ -546,11 +541,13 @@ public class GameManager : MonoBehaviour
     {
         if (trackNumber == 1)
         {
-            //audioSource.clip = Area1Music;
+            musicSource.clip = Area1Music;
+            musicSource.Play();
         }
         else if (trackNumber == 2)
         {
-            //audioSource.clip = Area2Music;
+            musicSource.clip = Area2Music;
+            musicSource.Play();
         }
     }
     public void WinGame() // |-----WIN GAME-----|
@@ -565,7 +562,7 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Player.GetComponent<PlayerController>().enabled = false;
         BossActive = false;
-        StopAllCoroutines();
+        
         ScoreCheck();
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
@@ -587,10 +584,13 @@ public class GameManager : MonoBehaviour
     {
         //Win.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+        ChangeMusic(1);
         //playerController.health = 100; // Resets health
         Player.GetComponent<PlayerController>().enabled = true; // Activates Player
         isDead = false; // Allows player to be damaged again
-                        // Player.GetComponent<PlayerController>().dashUsed = false; // Prevents bug that causes the player being unable to dash
+
+        // Player.GetComponent<PlayerController>().dashUsed = false; // Prevents bug that causes the player being unable to dash
         for (int i = 0; i < MenuSkillCount.Length; i++)
         {
             MenuSkillCount[i].text = "0";
@@ -685,6 +685,8 @@ public class GameManager : MonoBehaviour
         Dead.GetComponent<Image>().color = Color.clear;
         LvlTxt.color = Color.clear;
         BONEDTxt.color = Color.clear;
+        playerController.health = playerController.healthMax;
+        StopAllCoroutines();
     }
 
     public void MouseSensitivity()
@@ -722,7 +724,7 @@ public class GameManager : MonoBehaviour
         statsMenuTexts.damageText.text = "Damage: " + playerController.baseDamage;
         statsMenuTexts.critChanceText.text = "Crit hit chance: " + playerController.critChance + "%";
         statsMenuTexts.critDamageText.text = "Crit damage multi: x" + playerController.critMultiplier;
-        statsMenuTexts.attackSpeedText.text = "Attacks per second: " + 1 / playerController.attackFrequency + "s";
+        statsMenuTexts.attackSpeedText.text = "Attacks per second: " + 1 / playerController.attackFrequency;
         statsMenuTexts.ammoText.text = "Ammo: " + playerController.ammo + "/" + playerController.ammoMax;
         statsMenuTexts.reloadSpeedText.text = "Reload speed: " + Mathf.Round(playerController.reloadSpeed * 100)/100 + "s";
         statsMenuTexts.levelText.text = "Current level: " + roomSpawner.level;

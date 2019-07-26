@@ -10,6 +10,7 @@ public class WoodStuff : MonoBehaviour
     GameObject explosionParticle;
     [SerializeField]
     bool explosive;
+    [SerializeField]
     int damage = 10;
     bool explode;
     bool hasExplodedOnPlayer = false;
