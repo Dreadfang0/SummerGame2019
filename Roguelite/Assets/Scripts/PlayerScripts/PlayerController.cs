@@ -195,11 +195,6 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = speed * crouchMult * backpedalMultiplier;
             }
 
-            else if(isGrounded == false)
-            {
-                currentSpeed = speed;
-            }
-
             else
             {
                 currentSpeed = speed * backpedalMultiplier;
@@ -210,6 +205,10 @@ public class PlayerController : MonoBehaviour
         {
             moveY = 0;
             animator.SetBool("isMoving", false);
+            if(isCrouching == false)
+            {
+                currentSpeed = speed;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.S))
